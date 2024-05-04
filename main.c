@@ -6,9 +6,8 @@
 
 int main(int argc, char *argv[])
 {
-    printf("Hello !\n");
+    printf("Hello worlds !\n");
 
     return 0;
 }
-
 
