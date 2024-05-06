@@ -76,11 +76,11 @@ int displayMenuPrincipal(){
     int nb_option=6;
 
     char *tab[] = { 
-        "Noouvel entrainement",
-        "consulter l'historique d'entrainement",
-        "satistique des athlete",
-        "afficher_la_liste_des_athlete",
-        "ajouter_des_athlete",
+        "nouvel entrainement",
+        "consulter l'historique des entrainements",
+        "satistique des athletes",
+        "afficher_la_liste_des_athletes",
+        "ajouter_des_athletes",
         "rage_quit"
     };
 
