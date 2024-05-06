@@ -1,9 +1,7 @@
 #ifndef STRUCTURES_H  // FILENAME
 #define STRUCTURES_H
 
-
-#define MAX_LINE_LENGTH 200
-#define MIN_LINE_LENGTH 5
+#include "interface.h"
 
 
 // athlete
