@@ -4,31 +4,51 @@
 
 #include "structure.h"
 #include "athletes.h"
+#include "entrainement.h"
+#include "read_data_file.h"
+
 
 #define FILE_ATHLETES "data/athletes.csv"
+#define FILE_entrai "data/Usain Bolt.txt"
 
 
 int main() {
     int nbAthletes = 0;
 
+    int nbr_entraienemnt = 0;
+    entrainement* tab_entrainement;
     
-    //rajoute_moi();
+
     // load athletes from file
     athlete* tab_athletes = readAthletesFromFile(FILE_ATHLETES, &nbAthletes);
 
 
-    
+
     // 
     int user_choice = displayMenuPrincipal();
     switch( user_choice ){
         case 1 :
-                printf("bah non ca marche pas");
+                printf("bah non ca marche pas\n");
+
+
                 break;
         case 2 :
-                printf("bah non ca marche pas");
+                char nom_athlete[100] = "Usain Bolt";
+                char filename[100];
+
+                sprintf(filename, "data/%s.csv", nom_athlete);
+
+
+                printf("consulter l'historique des entrainements\n");
+                tab_entrainement = lis_un_fichier_d_entrainement(filename, &nbr_entraienemnt);
+                
+                printArrayOfentrainement(tab_entrainement, nbr_entraienemnt);
+
                 break;
+
+
         case 3 :
-                printf("bah non ca marche pas");
+                printf("bah non ca marche pas\n");
                 break;
         case 4 :
                 // print all athletes

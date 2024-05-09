@@ -8,30 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// return the number of lines with more than 1 characters 
-// to avoid empty lines !
-int nbLinesNonVide(const char* nomFichier) {
-    FILE* fichier = fopen(nomFichier, "r");
-    if (fichier == NULL) {
-        printf("Impossible de lire le fichier: %s", nomFichier);
-        exit(1);
-    }
 
-    int nbLignesOK = 0;
-    char ligne[MAX_LINE_LENGTH];
-    while (fgets(ligne, sizeof(ligne), fichier) != NULL) {
-        
-        // Supprimer le saut de ligne à la fin de la ligne si présent
-        size_t longueur = strlen(ligne);
-        if (longueur > 0 && ligne[longueur - 1] == '\n')
-            ligne[longueur - 1] = '\0';
-
-        // Ignorer les lignes vides
-        if (strlen(ligne) >= MIN_LINE_LENGTH) // 1
-            nbLignesOK++;
-    }
-    return nbLignesOK;
-}
 
 int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
     int nombre;
