@@ -7,6 +7,8 @@
 #define MAX_DATA_LENGTH 100
 
 
+void check_error(FILE * file);
+
 // return the number of lines with at least 1 character
 int nbLinesNotEmpty(const char* nomFichier);
 

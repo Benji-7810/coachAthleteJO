@@ -6,6 +6,13 @@
 #include "read_data_file.h"
 
 
+void check_error(FILE * file){
+    if (file == NULL) {
+        printf("Erreur lors de l'ouverture du fichier\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
 
 // return the number of lines with at least 1 character
 int nbLinesNotEmpty(const char* nomFichier) {
