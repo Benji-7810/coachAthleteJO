@@ -33,7 +33,7 @@ void demande_a_l_utilisateur_une_chaine_de_caractere(char* question, char* p_txt
 
 int displayMenuGeneric(char* tab_option[], int nb_option){
 
-    printf("print displayMenuGeneric %d\n", nb_option);  
+    //printf("print displayMenuGeneric %d\n", nb_option);  
     for(int i = 1 ; i<=nb_option ; i++){
 
         printf("%d : %s\n", i, tab_option[i-1]);  

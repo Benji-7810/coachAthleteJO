@@ -27,6 +27,7 @@ athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes) {
     int nbLines = 0;
     char*** tab_lines = readDataFile(nomFichier, ";", &nbLines);
 
+    // for debug
     //printDataLines(tab_lines, nbLines);
 
     // init nbAthletes
@@ -55,7 +56,7 @@ void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes)
 {
     printf("Nombre d'athletes : %d\n", nbAthletes);
     for (int i = 0; i < nbAthletes; i++) {
-        printf("Athlete %d : %s\n", i + 1, tab_athletes[i]->prenom_nom);
+        printf("Athlete %d : '%s'\n", i + 1, tab_athletes[i]->prenom_nom);
     }
 }
 
@@ -96,7 +97,7 @@ void addNewAthlete(athlete** tab_athletes, int* nbAthletes){
     athlete* p_new_athlete = (athlete*) malloc(sizeof(athlete));
     
     // init new athlete
-    char nv_athlete[100];
+    char nv_athlete[1000];
     printf("rentre un athlete: ");
     scanf("%s", nv_athlete); 
     strcpy(p_new_athlete->prenom_nom, nv_athlete);
@@ -110,3 +111,33 @@ void addNewAthlete(athlete** tab_athletes, int* nbAthletes){
 
 
 }
+
+
+
+// Fonction pour tester l'existence du fichier
+int fichier_existe(const char *nom_fichier) {
+    FILE *fichier = fopen(nom_fichier, "r");
+    if (fichier) {
+        fclose(fichier);
+        return 1; // Le fichier existe
+    } else {
+        return 0; // Le fichier n'existe pas
+    }
+}
+
+
+// Fonction pour créer le fichier s'il n'existe pas
+void creer_fichier_si_non_existant(const char *nom_fichier){
+    if (!fichier_existe(nom_fichier)) {
+        FILE *fichier = fopen(nom_fichier, "w");
+        if (fichier) {
+            printf("Le fichier %s a été créé.\n", nom_fichier);
+            fclose(fichier);
+        } else {
+            printf("Erreur lors de la création du fichier %s.\n", nom_fichier);
+        }
+    } else {
+        printf("Le fichier %s existe déjà.\n", nom_fichier);
+    }
+}
+

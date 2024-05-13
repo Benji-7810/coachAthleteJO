@@ -82,11 +82,26 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
     int num_ligne = 0;
     while (fgets(ligne, sizeof(ligne), fichier) != NULL) {
 
-        
+        // for debug
+        //printf("\nLigne: '%s'\n", ligne);
+
+        // for debug
+        //printf("\nDernier charactere: '%c' '%x'\n", ligne[longueur - 1], ligne[longueur - 1] );
+
+
+
+
         // Supprimer le saut de ligne à la fin de la ligne si présent
         unsigned short longueur = strlen(ligne);
+        int bool_saut_de_ligne;
         if (longueur > 0 && ligne[longueur - 1] == '\n')
+        {
             ligne[longueur - 1] = '\0';
+            bool_saut_de_ligne = 1;
+        } else {
+            bool_saut_de_ligne = 0;
+            longueur++;
+        }
 
 
         // Ignorer les lignes vides
@@ -123,10 +138,35 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
                     int ii = 0;
                     for (int k = indice_debut_data; k <= indice_fin_data ; k++ )
                     {
+                        // for debug
+                        // printf("\n%c", ligne[k]);
+                        
                         tableauFinal[num_ligne][num_data][ii] = ligne[k];
                         ii++;
                     }
-                    tableauFinal[num_ligne][num_data][ii] = '\0';
+                    
+                    // for debug
+                    // printf("\nj, (longueur-1) %d %d", j, (longueur-1));
+
+                    if (bool_saut_de_ligne) {
+                        // si dernier caracteres de la case
+                        if (j == (longueur-1)) {
+                            //printf("\n bool_saut_de_ligne");
+                            tableauFinal[num_ligne][num_data][ii-1] = '\0';
+                        } else {
+                            tableauFinal[num_ligne][num_data][ii] = '\0';
+                        }
+
+                    } else {
+
+                        //for debug
+                        //printf("\n !bool_saut_de_ligne");
+
+                        tableauFinal[num_ligne][num_data][ii+2] = '\0';
+                    }
+                    
+                    
+                    
                     //printf("\ndata=>%s", tableauFinal[num_ligne][num_data]);
 
 
@@ -163,7 +203,7 @@ void printDataLines(char*** tab_lines, int nbLines)
         j = 0;
         while (tab_lines[i][j] != NULL) {
             
-            printf("\ntab[%d][%d] : %s", i, j, tab_lines[i][j]);
+            printf("\ntab[%d][%d] : '%s'", i, j, tab_lines[i][j]);
 
             j++;
         }
