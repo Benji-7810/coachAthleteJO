@@ -152,7 +152,7 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
                         // si dernier caracteres de la case
                         if (j == (longueur-1)) {
                             //printf("\n bool_saut_de_ligne");
-                            tableauFinal[num_ligne][num_data][ii-1] = '\0';
+                            tableauFinal[num_ligne][num_data][ii] = '\0';
                         } else {
                             tableauFinal[num_ligne][num_data][ii] = '\0';
                         }

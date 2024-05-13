@@ -54,7 +54,7 @@ athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes) {
 // print an array of Athlete
 void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes)
 {
-    printf("Nombre d'athletes : %d\n", nbAthletes);
+    printf("Nombre d'athletes : %d\n\n", nbAthletes);
     for (int i = 0; i < nbAthletes; i++) {
         printf("Athlete %d : '%s'\n", i + 1, tab_athletes[i]->prenom_nom);
     }
@@ -85,7 +85,7 @@ void writeArrayOfAthleteTOfile(const char* nomFichier, athlete** tab_athletes, i
 
 
     
-    //fclose(fichier);  // Fermer le fichier
+    fclose(fichier);  // Fermer le fichier
 }
 
 

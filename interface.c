@@ -13,7 +13,7 @@
 int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
     int nombre;
     do{
-        printf("%s entre %d et %d\n", question, min, max);
+        printf("%s\n", question);
         scanf("%d", &nombre);
     }while(nombre<min || max<nombre);
 
@@ -40,7 +40,7 @@ int displayMenuGeneric(char* tab_option[], int nb_option){
       
 
     }
-    return demande_a_l_utilisateur_un_entier("quelle choix veux tu choisir ?", 1, nb_option);
+    return demande_a_l_utilisateur_un_entier("\nquelle choix veux tu choisir ?", 1, nb_option);
 
     
 }
@@ -50,18 +50,17 @@ int displayMenuGeneric(char* tab_option[], int nb_option){
 
 int displayMenuPrincipal(){
 
-    int nb_option=6;
+    int nb_option=5;
 
     char *tab[] = { 
-        "nouvel entrainement",
-        "consulter l'historique des entrainements",
+        "performances athletes",
         "satistique des athletes",
         "afficher_la_liste_des_athletes",
         "ajouter_des_athletes",
         "rage_quit"
     };
 
-
+    
     return displayMenuGeneric(tab, nb_option);
 }
 
