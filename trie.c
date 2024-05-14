@@ -45,9 +45,12 @@ void print_entrainements_trier(entrainement** tab_entrainement, int nb_entrainem
     printf("Performances triées pour l'épreuve: %s\n", epreuve);
     for (int i = 0; i < nb_entrainement; i++) {
         if (strcmp(tab_entrainement[i]->lepreuve.nom, epreuve) == 0) {
-            printf("Date: %s %s, Performance: %.2f sec\n",
-                   tab_entrainement[i]->ladate.jour_mois_annee,
-                   tab_entrainement[i]->ladate.heure_min,
+            printf("Date: %d/%d/%d %d:%d, Performance: %.2f sec\n",
+                   tab_entrainement[i]->ladate.jour,
+                   tab_entrainement[i]->ladate.mois,
+                   tab_entrainement[i]->ladate.annee,
+                   tab_entrainement[i]->ladate.heure,
+                   tab_entrainement[i]->ladate.min,
                    tab_entrainement[i]->laperf.perf);
         }
     }

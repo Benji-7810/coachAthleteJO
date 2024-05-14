@@ -3,7 +3,7 @@
 
 #include "interface.h"
 
-
+#include"structure.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -63,7 +63,6 @@ int displayMenuPrincipal(){
     
     return displayMenuGeneric(tab, nb_option);
 }
-
 
 
 #endif

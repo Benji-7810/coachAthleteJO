@@ -107,7 +107,7 @@ int main() {
                                         printf("\nfichier introuvable: %s", filename);
                                         creer_fichier_si_non_existant(filename);
                                 }
-                                printf("\nfichier introuvable: %s", filename);
+                                
 
                                 entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
 
@@ -116,6 +116,9 @@ int main() {
                         
                       
                                 writeArrayOftrainingTOfile(filename,tab_d_un_entrainement, nbEntrainement);
+
+                                //affiche le nom de l'athlete
+                                printf("%s \n\n",tab_athletes[num_athlete-1]->prenom_nom);
 
        
                                 printArrayOfentrainement(tab_d_un_entrainement, nbEntrainement);

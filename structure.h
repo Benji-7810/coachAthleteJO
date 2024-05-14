@@ -13,8 +13,11 @@ typedef struct{
 
 // date
 typedef struct{
-    char jour_mois_annee[100];
-    char heure_min[100];
+    int jour;
+    int mois;
+    int annee;
+    int heure;
+    int min;
    
 } date;
 
@@ -22,6 +25,7 @@ typedef struct{
 // epreuve
 typedef struct{
     char nom[100]; // ex: "100m", "400m", "5000m", "marathon", "relais"
+    int position_relais;
 }epreuve;
 
 
