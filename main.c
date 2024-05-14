@@ -7,6 +7,7 @@
 #include "athletes.h"
 #include "entrainement.h"
 #include "read_data_file.h"
+#include "trie.h"
 
 
 #define FILE_ATHLETES "data/athletes.csv"
@@ -23,6 +24,7 @@ int main() {
 
     int num_athlete = 0;
 
+        char nom_epreuve[100];        
     //entrainement** tab_entrainement = lis_un_fichier_d_entrainement(FILE_entrai, &nbEntrainement );
     
     // load athletes from file
@@ -121,14 +123,56 @@ int main() {
 
                                 break;
                         }
-
+        
       
                         
                 case 2 :
-                        printf("bah non ca marche pas\n");
-        
-                        break;
+                        
+                        nbr = demande_a_l_utilisateur_un_entier(" 1-résumé des performances d’un athlète \n 2-Qui envoyer au JO\n 3-Progression de l’athlète",1,3);
 
+                        switch( nbr ){
+
+                                case 1 :
+                                        printArrayOfAthlete(tab_athletes, nbAthletes);
+                        
+                                        // choix de l'athlete
+                                        printf("\nChoisi un athletes parmis cette liste de %d athletes pour ajouter l'avancer de son entrainement par épreuve\n", nbAthletes);
+                                        scanf("%d", &num_athlete);
+
+
+                                        printf("\nnom de l'athlete choisi : '%s'\n\n", tab_athletes[num_athlete-1]->prenom_nom);
+
+                                                                      
+                                        // generation du nom de fichier
+                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
+
+                                        printf("\nQuel épreuve veux tu choisir pour regarder\n");
+                                        scanf("%s",nom_epreuve);
+
+                                        entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
+
+                                        trie_perf(tab_d_un_entrainement, nbEntrainement, nom_epreuve);
+
+                                        print_entrainements_trier(tab_d_un_entrainement, nbEntrainement, nom_epreuve);
+
+                                        affiche_pire_meilleur_temps(tab_d_un_entrainement, nbEntrainement);
+
+
+                        
+        
+                                        break;
+
+                                case 2 :
+                                        printf("pas encore fais");
+                                        break;
+
+                                case 3 :
+                                        printf("pas fais");
+                                        break;
+                        
+                        }
+                        break;
+                        
                 case 3 :
                         // print all athletes
                         printf("\n");
