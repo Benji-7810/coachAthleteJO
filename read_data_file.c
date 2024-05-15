@@ -3,6 +3,7 @@
 #include <string.h>
 
 
+
 #include "read_data_file.h"
 
 
@@ -94,9 +95,17 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
         // Supprimer le saut de ligne à la fin de la ligne si présent
         unsigned short longueur = strlen(ligne);
         int bool_saut_de_ligne;
+
+        int nb_de_caractere_de_fin_de_ligne = 1; // linux
+        if (ligne[longueur - 2] == '\r') {
+            nb_de_caractere_de_fin_de_ligne = 2; // windows
+            //printf("\n rrrrrrrrr -2");
+        }
+
+
         if (longueur > 0 && ligne[longueur - 1] == '\n')
         {
-            ligne[longueur - 1] = '\0';
+            ligne[longueur - nb_de_caractere_de_fin_de_ligne] = '\0';
             bool_saut_de_ligne = 1;
         } else {
             bool_saut_de_ligne = 0;
@@ -151,10 +160,16 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
                     if (bool_saut_de_ligne) {
                         // si dernier caracteres de la case
                         if (j == (longueur-1)) {
+                            //if (PRINT_DEBUG)
+                                //printf("\nii");
+
                             //printf("\n bool_saut_de_ligne");
                             tableauFinal[num_ligne][num_data][ii] = '\0';
                         } else {
-                            tableauFinal[num_ligne][num_data][ii] = '\0';
+                            //if (PRINT_DEBUG)
+                                //printf("\nii+1");
+                            
+                            tableauFinal[num_ligne][num_data][ii+1] = '\0';
                         }
 
                     } else {
@@ -183,7 +198,8 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
         tableauFinal[num_ligne][num_data] = NULL;
 
         num_ligne++;
-    }
+
+    } // fin while
 
     fclose(fichier);
 

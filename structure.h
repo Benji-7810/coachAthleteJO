@@ -1,6 +1,8 @@
 #ifndef STRUCTURES_H  // FILENAME
 #define STRUCTURES_H
 
+
+
 #include "interface.h"
 
 

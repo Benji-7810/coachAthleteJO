@@ -49,7 +49,7 @@ int main() {
                 
                 // performances athletes : 
                 case 1 :
-                        nbr = demande_a_l_utilisateur_un_entier("    1 : consulter les entrainement d'un athlte\n\n    2 : ajouter un entrainement ",1,2);
+                        nbr = demande_a_l_utilisateur_un_entier_sans_affichage("    1 : consulter les entrainement d'un athlte\n\n    2 : ajouter un entrainement ",1,2);
                         if (nbr ==1){
                                                    
                                 printf("\n");printf("\n");printf("\n");

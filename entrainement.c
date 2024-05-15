@@ -25,7 +25,8 @@ entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nb_ent
     char*** tab_lines = readDataFile(nomFichier, ";", &nbLines);
 
     // for debug
-    //printDataLines(tab_lines, nbLines);
+    //if (PRINT_DEBUG)
+        //printDataLines(tab_lines, nbLines);
 
 
     *nb_entrainement = nbLines;
@@ -64,7 +65,7 @@ void printArrayOfentrainement(entrainement** TAB_DATA, int nbEntrainement)
     printf("Nombre d'entrainenement : %d\n", nbEntrainement);
 
     for (int i = 0; i < nbEntrainement; i++) {
-        printf("entrainement %d -> date : %d/%d/%d, heure_min : %d:%d, l'epreuve : %s, la perf : %f \n",
+        printf("entrainement %d -> date : %d/%d/%d, heure_min : %02d:%02d, l'epreuve : %s, la perf : %f \n",
         i+1,
         TAB_DATA[i]->ladate.jour,
         TAB_DATA[i]->ladate.heure,
@@ -131,34 +132,36 @@ void addNewEntrainement(entrainement** tab_entrainement, int* nbEntrainement){
     int position_relais;
     int check;
     
-    do
-    {   
-        printf("\nRentrer le jour de l'entrainement : ");
-        scanf("%d", &jour);}
-    while((jour > 31 || jour<0));
+    // do
+    // {   
+    //     printf("\nRentrer le jour de l'entrainement : ");
+    //     scanf("%d", &jour);}
+    // while((jour > 31 || jour<0));
 
 
-    do{
-        printf("rentre le mois : ");
-        scanf("%d",&mois);
-    }while((jour==31 && ( mois==2 || mois==4 || mois ==6 || mois==9 || mois == 11 )));
+    // do{
+    //     printf("rentre le mois : ");
+    //     scanf("%d",&mois);
+    // }while((jour==31 && ( mois==2 || mois==4 || mois ==6 || mois==9 || mois == 11 )));
+
+    jour = demande_a_l_utilisateur_un_entier("rentre le jour",1,31);
+
+    mois = demande_a_l_utilisateur_un_entier("rentre le mois",1,12);
+
+    annee = demande_a_l_utilisateur_un_entier("rentre l'année",2000,2024);
+
+    heure = demande_a_l_utilisateur_un_entier("rentre les heures",0,24);
+
+    min = demande_a_l_utilisateur_un_entier("rentre les minutes",0,60);
 
 
-    do{
-         printf("rentre l'annee : ");
-        scanf("%d",&annee);
-    
-
-    } while (jour==29 && mois ==2 && (annee%4!=0 && annee%100==0));
-
-
-    do
-    {
-        printf("\nrentre l'heure : ");
-        scanf("%d",&heure ); 
-        printf("\nrentre la min : ");
-        scanf("%d",&min ); 
-    }   while((heure<0 || heure>23) && ( min<0 || min>59));
+    // do
+    // {
+    //     printf("\nrentre l'heure : ");
+    //     scanf("%d",&heure ); 
+    //     printf("\nrentre la min : ");
+    //     scanf("%d",&min ); 
+    // }   while((heure<0 || heure>23) && ( min<0 || min>59));
 
 
 
@@ -173,12 +176,9 @@ void addNewEntrainement(entrainement** tab_entrainement, int* nbEntrainement){
     scanf("%f", &perf);
 
 
-    if(strcmp(epeuve, "relais")==0){
-        do{
-            printf("\n Quelle était sa position dans le relay");
-            scanf("%d",&position_relais);    
-    }   while(position_relais<1 || position_relais>4);
-    }
+    if(strcmp(epeuve, "relais")==0)
+        position_relais = demande_a_l_utilisateur_un_entier(" Quelle était sa position dans le relay",1,4);
+
     else{
         position_relais = 0;
     }

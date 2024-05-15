@@ -1,6 +1,8 @@
 #ifndef READ_DATA_FILES_H // FILENAME
 #define READ_DATA_FILES_H
 
+#define PRINT_DEBUG 1
+
 
 #define MAX_LINE_LENGTH 1024
 #define NB_MAX_DATA_BY_LINE 10

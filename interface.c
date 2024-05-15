@@ -13,7 +13,18 @@
 int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
     int nombre;
     do{
-        printf("%s\n", question);
+        printf("%s  entre %d et %d : ", question, min ,max);
+        scanf("%d", &nombre);
+    }while(nombre<min || max<nombre);
+
+
+    return nombre;
+}
+
+int demande_a_l_utilisateur_un_entier_sans_affichage(char* question, int min, int max) {
+    int nombre;
+    do{
+        printf("%s\n ", question);
         scanf("%d", &nombre);
     }while(nombre<min || max<nombre);
 
