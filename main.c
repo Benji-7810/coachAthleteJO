@@ -24,6 +24,8 @@ int main() {
 
     int num_athlete = 0;
 
+    int choix_temps_ou_perf = 0;
+
         char nom_epreuve[100];        
     //entrainement** tab_entrainement = lis_un_fichier_d_entrainement(FILE_entrai, &nbEntrainement );
     
@@ -31,7 +33,7 @@ int main() {
     athlete** tab_athletes = readAthletesFromFile(FILE_ATHLETES, &nbAthletes);
 
     
-
+        int j = 0;
 
         char nom_athlete[500];
         char filename[1500] ;
@@ -109,7 +111,7 @@ int main() {
                                 }
                                 
 
-                                entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
+                                entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement);
 
 
                                 addNewEntrainement(tab_d_un_entrainement, &nbEntrainement);
@@ -149,19 +151,25 @@ int main() {
                                         // generation du nom de fichier
                                         sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
 
-                                        printf("\nQuel épreuve veux tu choisir pour regarder\n");
-                                        scanf("%s",nom_epreuve);
+                                        do {
+                                        printf("\nEntre le type d'épreuve (ex 100m / 400m / 5000m / marathon / relais): ");
+                                        scanf("%s", nom_epreuve);
+                                        } while (strcmp(nom_epreuve, "100m") != 0 && strcmp(nom_epreuve, "400m") != 0 && strcmp(nom_epreuve, "5000m") != 0 && strcmp(nom_epreuve, "marathon") != 0 && strcmp(nom_epreuve, "relais") != 0);
 
                                         entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
 
                                         trie_perf(tab_d_un_entrainement, nbEntrainement, nom_epreuve);
 
-                                        print_entrainements_trier(tab_d_un_entrainement, nbEntrainement, nom_epreuve);
+                                        entrainement**tab_entrainement_epreuve = print_entrainements_trier(tab_d_un_entrainement, nbEntrainement, nom_epreuve,&j);
 
-                                        affiche_pire_meilleur_temps(tab_d_un_entrainement, nbEntrainement);
+                                        choix_temps_ou_perf = demande_a_l_utilisateur_un_entier_sans_affichage("\n\n1- afficher c'est perfomances clés (pire/meilleur/moyenne) \n2- afficher par date ",1,2);
+                                        if(choix_temps_ou_perf == 1){
+                                                affiche_pire_meilleur_temps(tab_entrainement_epreuve, j);}
 
+                                        else{
+                                                affiche_new_tab(tab_entrainement_epreuve, nom_epreuve, &j);
 
-                        
+                                        }
         
                                         break;
 
