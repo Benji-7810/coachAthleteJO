@@ -200,7 +200,58 @@ int main() {
                                         break;
 
                                 case 3 :
-                                        printf("pas fais");
+                                        printArrayOfAthlete(tab_athletes, nbAthletes);
+
+                                        printf("\n\nSaisissez l'athlete dont vous souhaitez voir la progression:\n");
+                                        scanf("%d",&num_athlete);
+
+                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
+
+                                       
+
+                                        do {
+                                        printf("\nEntrez l'epreuve dont vous souhaitez voir la progression (ex 100m / 400m / 5000m / marathon / relais): ");
+                                        scanf("%s", nom_epreuve);
+                                        printf("\n\n");
+                                        
+                                        } while (strcmp(nom_epreuve, "100m") != 0 && strcmp(nom_epreuve, "400m") != 0 && strcmp(nom_epreuve, "5000m") != 0 && strcmp(nom_epreuve, "marathon") != 0 && strcmp(nom_epreuve, "relais") != 0);
+
+                                        entrainement** tab_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
+
+                                        trie_entrainement_par_date(tab_entrainement, nbEntrainement, nom_epreuve);
+
+                                        entrainement** tab_epreuve= print_entrainements_trier(tab_entrainement, nbEntrainement, nom_epreuve,&j);
+                                        affiche_new_tab(tab_epreuve, nom_epreuve, &j);
+
+                                        printf("\n\n Veuillez saisir les 2 entrainements dont vous voulez constater la progression\n\n");
+                                        int entr1, entr2;
+                                        double pro;
+
+                                        printf("Saisi le numero du premier entrainement:");
+                                        scanf("%d",&entr1);
+
+                                        printf("Saisi le numero du deuxieme entrainement:");
+                                        scanf("%d",&entr2);
+
+                                        
+                                        pro=(tab_epreuve[entr1-1]->laperf.perf)-(tab_epreuve[entr2-1]->laperf.perf);
+
+                                        
+                                        if (pro<0)
+                                        {
+                                                pro=pro*(-1);
+                                        }
+
+                                        printf("%.2f",pro);
+
+                                        if (entr1>entr2)
+                                        {
+                                                printf("\nl'athlete a gagné %.2f secondes en performance",pro);
+                                        }
+                                        
+                                        else{
+                                                printf("\nl'athlete a perdu %.2f secondes en performance",pro);
+                                        }
                                         break;
                     
                         

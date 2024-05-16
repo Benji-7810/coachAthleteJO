@@ -65,7 +65,9 @@ entrainement** print_entrainements_trier(entrainement** tab_entrainement, int nb
 
 void affiche_new_tab(entrainement** tab_entrainement_epreuve, const char* epreuve, int *nb_filtre){
     for (int i = 0; i < *nb_filtre; i++) {
-        printf("Date: %d/%d/%d %d:%d, Performance: %.2f sec\n",
+        printf("Entrainement %d -> Date: %d/%d/%d %d:%d, Performance: %.2f sec\n",
+
+               i+1,
                tab_entrainement_epreuve[i]->ladate.jour,
                tab_entrainement_epreuve[i]->ladate.mois,
                tab_entrainement_epreuve[i]->ladate.annee,
@@ -107,20 +109,36 @@ int compare_dates(const date *date1, const date *date2) {
     return date1->min - date2->min;
 }
 
-// Fonction pour trier les entrainements par date pour une épreuve donnée
+// // Fonction pour trier les entrainements par date pour une épreuve donnée
+// void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve) {
+//     for (int i = 1; i < nb_entrainement; i++) {
+//         entrainement* key = tab_entrainement[i];
+//         int j = i - 1;
+
+//         // Déplace les éléments de tab_entrainement[0..i-1], qui sont plus récents que key, à une position plus élevée
+//         while (j >= 0 && compare_dates(&tab_entrainement[j]->ladate, &key->ladate) > 0 && strcmp(tab_entrainement[j]->lepreuve.nom, epreuve) == 0) {
+//             tab_entrainement[j + 1] = tab_entrainement[j];
+//             j--;
+//         }
+//         tab_entrainement[j + 1] = key;
+//     }
+// }
 void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve) {
     for (int i = 1; i < nb_entrainement; i++) {
         entrainement* key = tab_entrainement[i];
-        int j = i - 1;
+        if (strcmp(key->lepreuve.nom, epreuve) == 0) {
+            int j = i - 1;
 
-        // Déplace les éléments de tab_entrainement[0..i-1], qui sont plus récents que key, à une position plus élevée
-        while (j >= 0 && compare_dates(&tab_entrainement[j]->ladate, &key->ladate) > 0 && strcmp(tab_entrainement[j]->lepreuve.nom, epreuve) == 0) {
-            tab_entrainement[j + 1] = tab_entrainement[j];
-            j--;
+            // Déplace les éléments de tab_entrainement[0..i-1], qui sont plus récents que key, à une position plus élevée
+            while (j >= 0 && compare_dates(&tab_entrainement[j]->ladate, &key->ladate) > 0 && strcmp(tab_entrainement[j]->lepreuve.nom, epreuve) == 0) {
+                tab_entrainement[j + 1] = tab_entrainement[j];
+                j--;
+            }
+            tab_entrainement[j + 1] = key;
         }
-        tab_entrainement[j + 1] = key;
     }
 }
+
 
 // Fonction pour afficher les entrainements triés par date pour une épreuve spécifique
 void print_entrainements_tries_par_date(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve) {
