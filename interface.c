@@ -32,14 +32,28 @@ int demande_a_l_utilisateur_un_entier_sans_affichage(char* question, int min, in
     return nombre;
 }
 
-void demande_a_l_utilisateur_une_chaine_de_caractere(char* question, char* p_txt, int longueur_min, int longueur_max) {
+// ne pas utiliser : bug si un espace est saisi
+void demande_a_l_utilisateur_une_chaine_de_caractere_ne_pas_utiliser(char* question, char* p_txt, int longueur_min, int longueur_max) {
     do{
          printf("%s (taille min %d, taille max %d)", question, longueur_min, longueur_max);
         scanf("%s", p_txt);
-    } while( strlen(p_txt)<longueur_min || longueur_max<strlen(p_txt));}
+    } while( strlen(p_txt)<longueur_min || longueur_max<strlen(p_txt));
+}
 
 
+void demande_a_l_utilisateur_une_chaine_de_caractere_fgets(char* question, char* p_txt, int taille_max)
+{
+    printf("\n%s", question);
+    
+    // 2x pour eviter le boucle infinie...
+    fgets(p_txt, taille_max-1, stdin);
+    fgets(p_txt, taille_max-1, stdin);
 
+    int length = (int)strlen(p_txt);
+    p_txt[length-1] = '\0';
+
+
+}
 
 
 int displayMenuGeneric(char* tab_option[], int nb_option){

@@ -89,18 +89,52 @@ void writeArrayOfAthleteTOfile(const char* nomFichier, athlete** tab_athletes, i
 }
 
 
-
+#define MAX_SIZE 15
 
 void addNewAthlete(athlete** tab_athletes, int* nbAthletes){
 
     // alloc new athlete
     athlete* p_new_athlete = (athlete*) malloc(sizeof(athlete));
     
-    // init new athlete
-    char nv_athlete[1000];
-    printf("rentre un athlete: ");
-    scanf("%s", nv_athlete); 
+/*
+   char str[MAX_SIZE];
+   
+   printf("Enter a string: ");
+   //fgets(str, MAX_SIZE, stdin);
+  
+    int i = 0;
+    while(fgets(str, MAX_SIZE , stdin) != NULL && i < 1)
+    {
+        printf("\n%d '%s'\n", i, str);
+        i++;        
+    }
+
+   printf("You entered: '%s'\n", str);
+
+*/
+
+char nv_athlete[100];
+
+demande_a_l_utilisateur_une_chaine_de_caractere_fgets("Entrez le nom de l'athlète: ", nv_athlete, 100-1);
+
+
+
+/*
+
+    
+
+    printf("Entrez le nom de l'athlète: ");
+    
+    // 2x pour evitre le boucle infinie...
+    fgets(nv_athlete, 100-1, stdin);
+    fgets(nv_athlete, 100-1, stdin);
+
+    printf("Nom de l'athlète: '%s'\n", nv_athlete);
+
+*/
+
     strcpy(p_new_athlete->prenom_nom, nv_athlete);
+
 
     // add new athlete to tab
     tab_athletes[*nbAthletes] = p_new_athlete;

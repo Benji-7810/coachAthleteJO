@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <locale.h>
+
 
 #include "structure.h"
 #include "athletes.h"
 #include "entrainement.h"
 #include "read_data_file.h"
 #include "trie.h"
+#include "Athletes_Selectione_JO.h"
 
 
 #define FILE_ATHLETES "data/athletes.csv"
@@ -16,7 +17,7 @@
 
 int main() {
 
-
+    int nbTotalEntrainements = 0;
 
     int nbAthletes = 0;
 
@@ -133,7 +134,7 @@ int main() {
                         
                 case 2 :
                         
-                        nbr = demande_a_l_utilisateur_un_entier(" 1-résumé des performances d’un athlète \n 2-Qui envoyer au JO\n 3-Progression de l’athlète",1,3);
+                        nbr = demande_a_l_utilisateur_un_entier_sans_affichage(" 1-résumé des performances d’un athlète \n 2-Qui envoyer au JO\n 3-Progression de l’athlète",1,3);
 
                         switch( nbr ){
 
@@ -174,15 +175,38 @@ int main() {
                                         break;
 
                                 case 2 :
-                                        printf("pas encore fais");
+
+                                       do {
+                                        printf("\nEntre le type d'épreuve (ex 100m / 400m / 5000m / marathon / relais): ");
+                                        scanf("%s", nom_epreuve);
+                                        } while (strcmp(nom_epreuve, "100m") != 0 && strcmp(nom_epreuve, "400m") != 0 && strcmp(nom_epreuve, "5000m") != 0 && strcmp(nom_epreuve, "marathon") != 0 && strcmp(nom_epreuve, "relais") != 0);
+                                        printf("\n");printf("\n");
+                                        entrainement** tab_tout_les_athletes = genererTableauEntrainements(FILE_ATHLETES,&nbTotalEntrainements,nom_epreuve);
+
+                                        //afficherEntrainements(tab_tout_les_athletes,nbTotalEntrainements);
+
+                                        //afficherEntrainementsTries(tab_tout_les_athletes, nbTotalEntrainements);
+
+                                        printf("\n");
+                                        printf("\n");
+                                        printf("\n");
+
+                                        StatistiquesAthlete*stats = calculerStatistiques(tab_tout_les_athletes,nbTotalEntrainements, &nbAthletes);
+
+                                        affichetab(stats,nbAthletes);
+                                        printf("\n\n\n\n%d\n\n\n\n\n",nbAthletes);
+
+                                        afficherStatistiques(stats, nbAthletes);
                                         break;
 
                                 case 3 :
                                         printf("pas fais");
                                         break;
+                    
                         
-                        }
+
                         break;
+                        }
                         
                 case 3 :
                         // print all athletes
@@ -240,3 +264,4 @@ int main() {
 
     return 0;
 }
+

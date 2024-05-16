@@ -48,6 +48,15 @@ typedef struct{
 
 
 
+typedef struct {
+    char nom[100];        // Nom de l'athlète
+    double meilleur_temps; // Meilleur temps réalisé
+    double moyenne_temps;  // Moyenne des temps réalisés
+    int compteur;          // Nombre d'entrainements pour cet athlète
+    double somme_temps;    // Somme des temps pour calculer la moyenne
+} StatistiquesAthlete;
+
+
 #endif
 
 
