@@ -62,6 +62,7 @@ entrainement** genererTableauEntrainements(const char* fichierAthletes, int* nbT
                 tabEntrainements[totalEntrainements++] = nouvelEntrainement;
             }
         }
+        
 
         // Libérer la mémoire allouée pour les entraînements de cet athlète
         free(entrainementsAthlete);

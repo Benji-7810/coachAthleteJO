@@ -44,4 +44,5 @@ int comparerParMeilleurTemps(const void *a, const void *b);
 
 void trierParMoyenne(StatistiquesAthlete *stats, int nbAthletes);
 
+
 void trierParMeilleurTemps(StatistiquesAthlete *stats, int nbAthletes);

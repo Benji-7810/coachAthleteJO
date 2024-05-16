@@ -41,6 +41,7 @@ void demande_a_l_utilisateur_une_chaine_de_caractere_ne_pas_utiliser(char* quest
 }
 
 
+
 void demande_a_l_utilisateur_une_chaine_de_caractere_fgets(char* question, char* p_txt, int taille_max)
 {
     printf("\n%s", question);

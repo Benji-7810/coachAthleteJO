@@ -16,5 +16,7 @@ int demande_a_l_utilisateur_un_entier_sans_affichage(char* question, int min, in
 
 int displayMenuGeneric(char * tab_option[], int nb_option);
 
+
 int displayMenuPrincipal();
+
 
