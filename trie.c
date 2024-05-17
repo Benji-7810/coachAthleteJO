@@ -23,7 +23,8 @@ void trie_perf(entrainement** tab_entrainement, int nb_entrainement, const char*
         entrainement* key = tab_entrainement[i];
         int j = i - 1;
 
-        while (j >= 0 && tab_entrainement[j]->laperf.perf > key->laperf.perf && strcmp(tab_entrainement[j]->lepreuve.nom, epreuve) == 0) {
+        // Vérifie si l'épreuve correspond et que la performance est inférieure (meilleure)
+        while (j >= 0 && strcmp(tab_entrainement[j]->lepreuve.nom, epreuve) == 0 && tab_entrainement[j]->laperf.perf > key->laperf.perf) {
             tab_entrainement[j + 1] = tab_entrainement[j];
             j--;
         }
@@ -63,19 +64,20 @@ entrainement** print_entrainements_trier(entrainement** tab_entrainement, int nb
     return tab_entrainement_epreuve;
 }
 
+
+
 void affiche_new_tab(entrainement** tab_entrainement_epreuve, const char* epreuve, int *nb_filtre){
     for (int i = 0; i < *nb_filtre; i++) {
-        printf("Entrainement %d -> Date: %d/%d/%d %d:%d, Performance: %.2f sec\n",
+        printf("Entrainement %d -> Date: %s, Performance: %.2f sec\n",
 
                i+1,
-               tab_entrainement_epreuve[i]->ladate.jour,
-               tab_entrainement_epreuve[i]->ladate.mois,
-               tab_entrainement_epreuve[i]->ladate.annee,
-               tab_entrainement_epreuve[i]->ladate.heure,
-               tab_entrainement_epreuve[i]->ladate.min,
+               get_date_printable(tab_entrainement_epreuve[i]->ladate),
                tab_entrainement_epreuve[i]->laperf.perf);
     }
 }
+
+
+
 
 void affiche_pire_meilleur_temps(entrainement** tab_entrainement_epreuve, int nb_filtre){
     if (nb_filtre == 0) {
@@ -94,64 +96,112 @@ void affiche_pire_meilleur_temps(entrainement** tab_entrainement_epreuve, int nb
     printf("Moyenne des performances : %.2f sec\n", moyenne_perf); // Affichage de la moyenne
 }
    
-// Assume the structures are defined as before
+// }
 
-// Comparaison des dates
-int compare_dates(const date *date1, const date *date2) {
-    if (date1->annee != date2->annee)
-        return date1->annee - date2->annee;
-    if (date1->mois != date2->mois)
-        return date1->mois - date2->mois;
-    if (date1->jour != date2->jour)
-        return date1->jour - date2->jour;
-    if (date1->heure != date2->heure)
-        return date1->heure - date2->heure;
-    return date1->min - date2->min;
+int compare_date1_date2(const date *date1, const date *date2) {
+    if (date1->annee > date2->annee)
+        return 1;
+    if (date1->annee < date2->annee)
+        return -1;
+
+    if (date1->mois > date2->mois)
+        return 1;
+    if (date1->mois < date2->mois)
+        return -1;
+
+    if (date1->jour > date2->jour)
+        return 1;
+    if (date1->jour < date2->jour)
+        return -1;
+
+    if (date1->heure > date2->heure)
+        return 1;
+    if (date1->heure < date2->heure)
+        return -1;
+
+    if (date1->min > date2->min)
+        return 1;
+    if (date1->min < date2->min)
+        return -1;
+
+    return 0;
 }
 
-// // Fonction pour trier les entrainements par date pour une épreuve donnée
-// void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve) {
-//     for (int i = 1; i < nb_entrainement; i++) {
-//         entrainement* key = tab_entrainement[i];
-//         int j = i - 1;
 
-//         // Déplace les éléments de tab_entrainement[0..i-1], qui sont plus récents que key, à une position plus élevée
-//         while (j >= 0 && compare_dates(&tab_entrainement[j]->ladate, &key->ladate) > 0 && strcmp(tab_entrainement[j]->lepreuve.nom, epreuve) == 0) {
-//             tab_entrainement[j + 1] = tab_entrainement[j];
-//             j--;
-//         }
-//         tab_entrainement[j + 1] = key;
-//     }
-// }
-void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve) {
+void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entrainement) {
     for (int i = 1; i < nb_entrainement; i++) {
         entrainement* key = tab_entrainement[i];
-        if (strcmp(key->lepreuve.nom, epreuve) == 0) {
-            int j = i - 1;
+        int j = i - 1;
 
-            // Déplace les éléments de tab_entrainement[0..i-1], qui sont plus récents que key, à une position plus élevée
-            while (j >= 0 && compare_dates(&tab_entrainement[j]->ladate, &key->ladate) > 0 && strcmp(tab_entrainement[j]->lepreuve.nom, epreuve) == 0) {
-                tab_entrainement[j + 1] = tab_entrainement[j];
-                j--;
-            }
-            tab_entrainement[j + 1] = key;
+        // Déplace les éléments de tab_entrainement[0..i-1] qui sont plus récents que key, à une position plus élevée
+        while (j >= 0 && compare_date1_date2(&tab_entrainement[j]->ladate, &key->ladate) > 0) {
+            tab_entrainement[j + 1] = tab_entrainement[j];
+            j--;
         }
+        tab_entrainement[j + 1] = key;
     }
+}
+
+
+// affiche un entrainement sur une ligne
+// ex: 
+// Date: 15/05/2024 11:08, Performance: 1101.36 sec, epreuve: 5000m
+void print_un_entrainement(entrainement* p_entrainement) {
+
+    printf("Date: %s, Performance: %7.2f sec, epreuve: %10s\n",
+            get_date_printable(p_entrainement->ladate),
+            p_entrainement->laperf.perf,
+            p_entrainement->lepreuve.nom);
+
+}
+
+
+
+// Fonction pour afficher les entrainements triés par date pour une épreuve spécifique
+void print_entrainements_tries_par_date(entrainement** tab_entrainement, int nb_entrainement) {
+
+    // tri  par date  
+    trie_entrainement_par_date(tab_entrainement, nb_entrainement);
+
+    printf("\n");
+
+    // affiche tous les entrainements
+    for (int i = 0; i < nb_entrainement; i++) {
+        print_un_entrainement(tab_entrainement[i]);
+    }
+
 }
 
 
 // Fonction pour afficher les entrainements triés par date pour une épreuve spécifique
-void print_entrainements_tries_par_date(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve) {
-    trie_entrainement_par_date(tab_entrainement, nb_entrainement, epreuve);
+void print_entrainements_tries_par_epreuve(entrainement** tab_entrainement, int nb_entrainement) {
+
+    // tri  par date  
+    trie_entrainement_par_date(tab_entrainement, nb_entrainement);
+
+    printf("\n");
+
+    print_entrainement_par_epreuve(tab_entrainement, nb_entrainement, "100m");
+    print_entrainement_par_epreuve(tab_entrainement, nb_entrainement, "400m");
+    print_entrainement_par_epreuve(tab_entrainement, nb_entrainement, "5000m");
+    print_entrainement_par_epreuve(tab_entrainement, nb_entrainement, "marathon");
+
+}
+
+
+// Fonction pour afficher les entrainements triés par date pour une épreuve spécifique
+void print_entrainement_par_epreuve(entrainement** tab_entrainement, int nb_entrainement, const char* nom_epreuve) {
+
+ 
+    printf("\n\n%s\n", nom_epreuve);
+
+    // affiche tous les entrainements
     for (int i = 0; i < nb_entrainement; i++) {
-        if (strcmp(tab_entrainement[i]->lepreuve.nom, epreuve) == 0) {
-            printf("Date: %d/%d/%d %d:%d, Performance: %.2f sec\n",
-                   tab_entrainement[i]->ladate.jour,
-                   tab_entrainement[i]->ladate.mois,
-                   tab_entrainement[i]->ladate.annee,
-                   tab_entrainement[i]->ladate.heure,
-                   tab_entrainement[i]->ladate.min,
-                   tab_entrainement[i]->laperf.perf);
+
+        if (strcmp(tab_entrainement[i]->lepreuve.nom, nom_epreuve) == 0) {
+            print_un_entrainement(tab_entrainement[i]);
         }
+
     }
+
 }

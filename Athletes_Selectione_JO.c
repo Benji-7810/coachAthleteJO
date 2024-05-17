@@ -83,13 +83,9 @@ void afficherEntrainements(entrainement** tabEntrainements, int nbTotalEntrainem
         if (tabEntrainements[i] == NULL) continue; // Ignore les pointeurs NULL
 
         // Affichage de l'entraînement - l'information est supposée être en format de chaîne unique avec tous les détails
-        printf("Athlète: %s, Date: %02d/%02d/%04d, Heure: %02d:%02d, Épreuve: %s, Performance: %.2f secondes\n\n",
+        printf("Athlète: %s, Date: %s, Épreuve: %s, Performance: %.2f secondes\n\n",
                tabEntrainements[i]->lepreuve.nom, // Nom de l'athlète et autres détails
-               tabEntrainements[i]->ladate.jour,
-               tabEntrainements[i]->ladate.mois,
-               tabEntrainements[i]->ladate.annee,
-               tabEntrainements[i]->ladate.heure,
-               tabEntrainements[i]->ladate.min,
+            get_date_printable(tabEntrainements[i]->ladate),
                tabEntrainements[i]->lepreuve.nom,
                tabEntrainements[i]->laperf.perf);
     }
@@ -127,17 +123,14 @@ void afficherEntrainementsTries(entrainement **tabEntrainements, int nbTotalEntr
         if (tabEntrainements[i] == NULL) continue; // Ignore les pointeurs NULL
 
         // Affichage de l'entraînement
-        printf("Athlète: %s, Date: %02d/%02d/%04d, Heure: %02d:%02d, Épreuve: %s, Performance: %.2f secondes\n",
+        printf("Athlète: %s, Date: %s, Épreuve: %s, Performance: %.2f secondes\n",
                tabEntrainements[i]->lepreuve.nom,
-               tabEntrainements[i]->ladate.jour,
-               tabEntrainements[i]->ladate.mois,
-               tabEntrainements[i]->ladate.annee,
-               tabEntrainements[i]->ladate.heure,
-               tabEntrainements[i]->ladate.min,
+                 get_date_printable(tabEntrainements[i]->ladate),
                tabEntrainements[i]->lepreuve.nom,
                tabEntrainements[i]->laperf.perf);
     }
 }
+
 
 
 

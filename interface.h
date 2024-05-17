@@ -1,6 +1,6 @@
 
 
-
+#include "structure.h"
 
 
 int displayMenu(char tab_option[]);
@@ -20,3 +20,8 @@ int displayMenuGeneric(char * tab_option[], int nb_option);
 int displayMenuPrincipal();
 
 
+// format: JJ/MM/AAAA HH:MM
+void print_date(date ladate);
+
+// return format: JJ/MM/AAAA HH:MM
+char* get_date_printable(date ladate);

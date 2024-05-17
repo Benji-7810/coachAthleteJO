@@ -3,7 +3,7 @@
 
 #include "interface.h"
 
-#include"structure.h"
+#include "structure.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -88,6 +88,26 @@ int displayMenuPrincipal(){
 
     
     return displayMenuGeneric(tab, nb_option);
+}
+
+
+// format: JJ/MM/AAAA HH:MM
+void print_date(date ladate)
+{
+    printf("%02d/%02d/%04d %02d:%02d", 
+    ladate.jour, ladate.mois, ladate.annee, ladate.heure, ladate.min); 
+}
+
+
+// return format: JJ/MM/AAAA HH:MM
+char* get_date_printable(date ladate)
+{
+    char* date_printable = (char*) malloc(sizeof(char) * (16+1));
+
+    sprintf(date_printable, "%02d/%02d/%04d %02d:%02d", 
+    ladate.jour, ladate.mois, ladate.annee, ladate.heure, ladate.min); 
+
+    return date_printable;
 }
 
 

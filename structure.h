@@ -3,8 +3,6 @@
 
 
 
-#include "interface.h"
-
 
 // athlete
 typedef struct{
@@ -22,6 +20,7 @@ typedef struct{
     int min;
    
 } date;
+
 
 
 // epreuve
@@ -56,6 +55,9 @@ typedef struct {
     double somme_temps;    // Somme des temps pour calculer la moyenne
 } StatistiquesAthlete;
 
+
+
+#include "interface.h"
 
 #endif
 
