@@ -110,5 +110,15 @@ char* get_date_printable(date ladate)
     return date_printable;
 }
 
+int numero_jour( date d){
+    int m= (d.mois+9)%12;
+    int a= d.annee-(m>=10);
+     return 1461*a/4-a/100+a/100+(m*306+5)/10+d.jour;
+}
+
+int nombre_jours(date d1, date d2){
+    return numero_jour(d1)-numero_jour(d2);
+}
+
 
 #endif

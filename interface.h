@@ -15,7 +15,8 @@ void demande_a_l_utilisateur_une_chaine_de_caractere_fgets(char* question, char*
 int demande_a_l_utilisateur_un_entier_sans_affichage(char* question, int min, int max);
 
 int displayMenuGeneric(char * tab_option[], int nb_option);
-
+int numero_jour( date d);
+int nombre_jours(date d1, date d2);
 
 int displayMenuPrincipal();
 

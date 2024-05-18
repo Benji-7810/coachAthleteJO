@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <locale.h>
 
 #include "structure.h"
 #include "athletes.h"
 #include "entrainement.h"
 #include "read_data_file.h"
 #include "trie.h"
-#include "Athletes_Selectione_JO.h"
 
 
 #define FILE_ATHLETES "data/athletes.csv"
@@ -17,7 +16,7 @@
 
 int main() {
 
-    int nbTotalEntrainements = 0;
+
 
     int nbAthletes = 0;
 
@@ -40,6 +39,7 @@ int main() {
         char filename[1500] ;
         char fichier_nom[1000];
         int nbr = 0;
+        int diff=0;
 
     
     // 
@@ -134,7 +134,7 @@ int main() {
                         
                 case 2 :
                         
-                        nbr = demande_a_l_utilisateur_un_entier_sans_affichage(" 1-résumé des performances d’un athlète \n 2-Qui envoyer au JO\n 3-Progression de l’athlète",1,3);
+                        nbr = demande_a_l_utilisateur_un_entier(" 1-résumé des performances d’un athlète \n 2-Qui envoyer au JO\n 3-Progression de l’athlète",1,3);
 
                         switch( nbr ){
 
@@ -152,64 +152,35 @@ int main() {
                                         // generation du nom de fichier
                                         sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
 
-                                        
-                                        
-                                        
-                                        choix_temps_ou_perf = demande_a_l_utilisateur_un_entier_sans_affichage("\n\n1- afficher c'est perfomances clés (pire/meilleur/moyenne) \n2- afficher par date toutes les épreuves",1,2);
+                                        do {
+                                        printf("\nEntre le type d'épreuve (ex 100m / 400m / 5000m / marathon / relais): ");
+                                        scanf("%s", nom_epreuve);
+                                        } while (strcmp(nom_epreuve, "100m") != 0 && strcmp(nom_epreuve, "400m") != 0 && strcmp(nom_epreuve, "5000m") != 0 && strcmp(nom_epreuve, "marathon") != 0 && strcmp(nom_epreuve, "relais") != 0);
+
+                                        entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
+
+                                        trie_perf(tab_d_un_entrainement, nbEntrainement, nom_epreuve);
+
+                                        entrainement**tab_entrainement_epreuve = print_entrainements_trier(tab_d_un_entrainement, nbEntrainement, nom_epreuve,&j);
+
+                                        choix_temps_ou_perf = demande_a_l_utilisateur_un_entier_sans_affichage("\n\n1- afficher c'est perfomances clés (pire/meilleur/moyenne) \n2- afficher par date ",1,2);
                                         if(choix_temps_ou_perf == 1){
-
-                                                do {
-                                                printf("\nEntre le type d'épreuve (ex 100m / 400m / 5000m / marathon / relais): ");
-                                                scanf("%s", nom_epreuve);
-                                                } while (strcmp(nom_epreuve, "100m") != 0 && strcmp(nom_epreuve, "400m") != 0 && strcmp(nom_epreuve, "5000m") != 0 && strcmp(nom_epreuve, "marathon") != 0 && strcmp(nom_epreuve, "relais") != 0);
-                                                printf("\n");
-                                                printf("\n");
-                                                entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
-                                                
-                                                trie_perf(tab_d_un_entrainement, nbEntrainement, nom_epreuve);
-                                                
-                                                entrainement**tab_entrainement_epreuve = print_entrainements_trier(tab_d_un_entrainement, nbEntrainement, nom_epreuve,&j);
-                                                
-                                                printf("\n");
-
                                                 affiche_pire_meilleur_temps(tab_entrainement_epreuve, j);}
 
                                         else{
-                                                entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
-                                                print_entrainements_tries_par_epreuve(tab_d_un_entrainement, nbEntrainement);
+                                                affiche_new_tab(tab_entrainement_epreuve, nom_epreuve, &j);
 
                                         }
         
                                         break;
 
                                 case 2 :
-
-                                       do {
-                                        printf("\nEntre le type d'épreuve (ex 100m / 400m / 5000m / marathon / relais): ");
-                                        scanf("%s", nom_epreuve);
-                                        } while (strcmp(nom_epreuve, "100m") != 0 && strcmp(nom_epreuve, "400m") != 0 && strcmp(nom_epreuve, "5000m") != 0 && strcmp(nom_epreuve, "marathon") != 0 && strcmp(nom_epreuve, "relais") != 0);
-                                        printf("\n");printf("\n");
-                                        entrainement** tab_tout_les_athletes = genererTableauEntrainements(FILE_ATHLETES,&nbTotalEntrainements,nom_epreuve);
-
-                                        //afficherEntrainements(tab_tout_les_athletes,nbTotalEntrainements);
-
-                                        //afficherEntrainementsTries(tab_tout_les_athletes, nbTotalEntrainements);
-                                        
-
-                                        printf("\n");
-                                        printf("\n");
-                                        printf("\n");
-
-                                        StatistiquesAthlete*stats = calculerStatistiques(tab_tout_les_athletes,nbTotalEntrainements, &nbAthletes);
-
-                                        //affichetab(stats,nbAthletes);
-                                        //printf("\n\n\n\n%d\n\n\n\n\n",nbAthletes);
-
-                                        afficherStatistiques(stats, nbAthletes);
+                                        printf("pas encore fais");
                                         break;
 
                                 case 3 :
-                                        printArrayOfAthlete(tab_athletes, nbAthletes);
+
+                                printArrayOfAthlete(tab_athletes, nbAthletes);
 
                                         printf("\n\nSaisissez l'athlete dont vous souhaitez voir la progression:\n");
                                         scanf("%d",&num_athlete);
@@ -227,9 +198,7 @@ int main() {
 
                                         entrainement** tab_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
 
-                                        trie_entrainement_par_date(tab_entrainement,nbEntrainement);
-
-                                        trie_entrainement_par_date(tab_entrainement, nbEntrainement) ;
+                                        trie_perf(tab_entrainement, nbEntrainement, nom_epreuve);
 
                                         entrainement** tab_epreuve= print_entrainements_trier(tab_entrainement, nbEntrainement, nom_epreuve,&j);
                                         affiche_new_tab(tab_epreuve, nom_epreuve, &j);
@@ -238,16 +207,24 @@ int main() {
                                         int entr1, entr2;
                                         double pro;
 
-                                        printf("Saisi le numero du premier entrainement:");
+                                        printf("Saisi le premier entrainement:");
                                         scanf("%d",&entr1);
 
-                                        printf("Saisi le numero du deuxieme entrainement:");
+                                        printf("Saisi le deuxieme entrainement:");
                                         scanf("%d",&entr2);
 
                                         
                                         pro=(tab_epreuve[entr1-1]->laperf.perf)-(tab_epreuve[entr2-1]->laperf.perf);
 
+                                        diff=nombre_jours(tab_epreuve[entr1-1]->ladate,tab_epreuve[entr2-1]->ladate);
+
+                                        if (diff<0)
+                                        {
+                                                diff=diff*(-1);
+                                        }
                                         
+                                        
+
                                         if (pro<0)
                                         {
                                                 pro=pro*(-1);
@@ -257,17 +234,25 @@ int main() {
 
                                         if (entr1>entr2)
                                         {
-                                                printf("\nl'athlete a gagné %.2f secondes en performance",pro);
+                                                printf("\nl'athlete a gagne %.2f secondes en performance avec %d jours d'intervalle",pro,diff);
                                         }
                                         
                                         else{
-                                                printf("\nl'athlete a perdu %.2f secondes en performance",pro);
+                                                printf("\nl'athlete a perdu %.2f secondes en performance avec %d jours d'intervalle",pro,diff);
                                         }
-                                        break;
-                    
-                        
+                                        
 
-                         break;
+                                        
+
+
+
+                                        
+
+
+                                        
+
+                                        break;
+                        
                         }
                         break;
                         
@@ -325,7 +310,5 @@ int main() {
 
 
 
-
     return 0;
 }
-
