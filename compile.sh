@@ -1,1 +1,1 @@
-gcc *.c -o coachJOLinux
+gcc -Wall *.c -o coachJOLinux

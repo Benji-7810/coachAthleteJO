@@ -221,7 +221,7 @@ void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes) {
         return;
     }
     printf("Statistiques des athlètes :\n");
-    int i =0;
+    //int i =0;
   
         int nbr = demande_a_l_utilisateur_un_entier_sans_affichage("Vous voulez afficher les 3 meilleurs athletes par quel moyens \n1- Meilleur temps\n2- Moyenne des temps",1,2);
         if(nbr==1){

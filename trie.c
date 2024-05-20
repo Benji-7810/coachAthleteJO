@@ -148,11 +148,17 @@ void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entraine
 // Date: 15/05/2024 11:08, Performance: 1101.36 sec, epreuve: 5000m
 void print_un_entrainement(entrainement* p_entrainement) {
 
-    printf("Date: %s, Performance: %7.2f sec, epreuve: %10s\n",
+    printf("Date: %s, Performance: %7.2f sec, epreuve: %10s",
             get_date_printable(p_entrainement->ladate),
             p_entrainement->laperf.perf,
             p_entrainement->lepreuve.nom);
 
+    if (strcmp(p_entrainement->lepreuve.nom, "relais") == 0)
+    {
+        printf(" position: %d\n", p_entrainement->lepreuve.position_relais);    
+    }
+
+    printf("\n");
 }
 
 

@@ -26,3 +26,15 @@ void print_date(date ladate);
 
 // return format: JJ/MM/AAAA HH:MM
 char* get_date_printable(date ladate);
+
+void transforme_en_date(int jour, int mois, int annee, int heure, int min, date* ladate);
+
+void demande_a_l_utilisateur_une_date( date*date_relais);
+
+void demande_a_l_utilisateur_une_perf(performance* laperf);
+
+void transforme_en_perf(double perf, performance* laperf);
+
+char* get_perf_printable(performance laperf);
+
+void displayMenuChoixUneEpreuveATaper(char* epreuve);

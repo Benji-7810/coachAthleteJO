@@ -17,25 +17,41 @@ void check_error(FILE * file){
 
 // return the number of lines with at least 1 character
 int nbLinesNotEmpty(const char* nomFichier) {
+    
     FILE* fichier = fopen(nomFichier, "r");
     if (fichier == NULL) {
-        printf("Impossible de lire le fichier: %s", nomFichier);
+        printf("Impossible de lire le fichier: '%s'", nomFichier);
         exit(1);
     }
 
+    int i = 1;
     int nbLignesOK = 0;
     char ligne[MAX_LINE_LENGTH];
+
     while (fgets(ligne, sizeof(ligne), fichier) != NULL) {
         
         // Supprimer le saut de ligne à la fin de la ligne si présent
         size_t longueur = strlen(ligne);
-        if (longueur > 0 && ligne[longueur - 1] == '\n')
+        if (PRINT_DEBUG)
+            printf("\nnbLinesNotEmpty() longueur ligne %d: %d", i, (int)longueur);
+
+        if (longueur > 0 && ligne[longueur - 1] == '\n') {
             ligne[longueur - 1] = '\0';
+        }
 
         // Ignorer les lignes vides
-        if (strlen(ligne) > 0)
+        if (strlen(ligne) > 2) {
             nbLignesOK++;
+            
+            if (PRINT_DEBUG)
+                printf(" OK nbLignesOK %d", nbLignesOK);
+        }
+
+        i++;
     }
+
+    fclose(fichier);
+
     return nbLignesOK;
 }
 
@@ -65,7 +81,7 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
 
     FILE* fichier = fopen(nomFichier, "r");
     if (fichier == NULL) {
-        printf("Impossible de lire le fichier: %s", nomFichier);
+        printf("Impossible de lire le fichier: '%s'", nomFichier);
         exit(1);
     }
 
@@ -88,8 +104,6 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
 
         // for debug
         //printf("\nDernier charactere: '%c' '%x'\n", ligne[longueur - 1], ligne[longueur - 1] );
-
-
 
 
         // Supprimer le saut de ligne à la fin de la ligne si présent
@@ -211,10 +225,12 @@ char*** readDataFile(const char* nomFichier, const char* separator, int* nbLines
 // print an array of "data Lines"
 void printDataLines(char*** tab_lines, int nbLines)
 {
-    printf("\nNombre de lignes : %d\n", nbLines);
+    printf("\n\nDebut printDataLines(): Nombre de lignes : %d", nbLines);
 
     int j;
     for (int i = 0 ; i < nbLines; i++) {
+
+        printf("\ni: %d / %d", i, nbLines);
 
         j = 0;
         while (tab_lines[i][j] != NULL) {
@@ -225,8 +241,8 @@ void printDataLines(char*** tab_lines, int nbLines)
         }
         printf("\ntab[%d][%d] : NULL", i, j);
 
-        printf("\n");
     }
-    printf("\n\n");
+
+    printf("\nfin printDataLines()\n");
 }
 

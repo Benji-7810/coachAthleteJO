@@ -44,6 +44,8 @@ athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes) {
         strcpy( TAB_DATA[i]->prenom_nom, tab_lines[i][0]); // first data
     }
 
+    if (PRINT_DEBUG)
+        printf("\nfin readAthletesFromFile()");
 
     return TAB_DATA;
 }
@@ -132,13 +134,13 @@ void creer_fichier_si_non_existant(const char *nom_fichier){
     if (!fichier_existe(nom_fichier)) {
         FILE *fichier = fopen(nom_fichier, "w");
         if (fichier) {
-            printf("Le fichier %s a été créé.\n", nom_fichier);
+            printf("Le fichier '%s' a été créé.\n", nom_fichier);
             fclose(fichier);
         } else {
-            printf("Erreur lors de la création du fichier %s.\n", nom_fichier);
+            printf("Erreur lors de la création du fichier '%s'.\n", nom_fichier);
         }
     } else {
-        printf("Le fichier %s existe déjà.\n", nom_fichier);
+        printf("Le fichier '%s' existe déjà.\n", nom_fichier);
     }
 }
 
