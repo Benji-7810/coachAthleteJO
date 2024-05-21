@@ -56,9 +56,10 @@ athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes) {
 // print an array of Athlete
 void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes)
 {
-    printf("Nombre d'athletes : %d\n\n", nbAthletes);
+    //printf("Nombre d'athletes : %d\n\n", nbAthletes);
+    printf("\n");
     for (int i = 0; i < nbAthletes; i++) {
-        printf("Athlete %d : '%s'\n", i + 1, tab_athletes[i]->prenom_nom);
+        printf("Athlete %2d : '%s'\n", i + 1, tab_athletes[i]->prenom_nom);
     }
 }
 
@@ -92,27 +93,31 @@ void writeArrayOfAthleteTOfile(const char* nomFichier, athlete** tab_athletes, i
 }
 
 
-#define MAX_SIZE 15
 
-void addNewAthlete(athlete** tab_athletes, int* nbAthletes){
+// add new athlete to array
+// return 1 if OK else 0
+int addNewAthlete(athlete** tab_athletes, int* nbAthletes){
 
     // alloc new athlete
     athlete* p_new_athlete = (athlete*) malloc(sizeof(athlete));
     
     char nv_athlete[100];
-    demande_a_l_utilisateur_une_chaine_de_caractere_fgets("Entrez le nom de l'athlète: ", nv_athlete, 100-1);
+    demande_a_l_utilisateur_une_chaine_de_caractere_fgets("Entrez le nom de l'athlète (min 3 caractères): ", nv_athlete, 100-1);
 
-    strcpy(p_new_athlete->prenom_nom, nv_athlete);
+    if (strlen(nv_athlete) < 3) {
+        printf("le nom de l'athlete est trop petit !!\n");
+        return 0;
+    } 
+    else 
+    {
+        strcpy(p_new_athlete->prenom_nom, nv_athlete);
 
+        // add new athlete to tab
+        tab_athletes[*nbAthletes] = p_new_athlete;
 
-    // add new athlete to tab
-    tab_athletes[*nbAthletes] = p_new_athlete;
-
-
-    (*nbAthletes)++;
-
-
-
+        (*nbAthletes)++;
+        return 1;
+    }
 }
 
 
@@ -134,7 +139,7 @@ void creer_fichier_si_non_existant(const char *nom_fichier){
     if (!fichier_existe(nom_fichier)) {
         FILE *fichier = fopen(nom_fichier, "w");
         if (fichier) {
-            printf("Le fichier '%s' a été créé.\n", nom_fichier);
+            //printf("Le fichier '%s' a été créé.\n", nom_fichier);
             fclose(fichier);
         } else {
             printf("Erreur lors de la création du fichier '%s'.\n", nom_fichier);

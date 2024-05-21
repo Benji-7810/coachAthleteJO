@@ -105,17 +105,36 @@ entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nb_ent
 // print an array of Athlete
 void printArrayOfentrainement(entrainement** TAB_DATA, int nbEntrainement)
 {
-    printf("Nombre d'entrainenement : %d\n", nbEntrainement);
+    //printf("Nombre d'entrainenement : %d\n", nbEntrainement);
 
     for (int i = 0; i < nbEntrainement; i++) {
-        //printf("entrainement %2d -> date : %s, l'epreuve : %9s,  la perf : %8.2f \n",
-        printf("entrainement %2d -> date : %s, l'epreuve : %9s,  la perf : %s \n",
-        i+1,
-        get_date_printable(TAB_DATA[i]->ladate),
-        TAB_DATA[i]->lepreuve.nom, 
-        get_perf_printable(TAB_DATA[i]->laperf));
+
+        print1entrainement(TAB_DATA[i], i+1);
+
     }
 }
+
+// print an array of Athlete
+void print1entrainement(entrainement* p_entrainement, int i)
+{
+    char epreuve[20];
+
+    // special "relais"
+    if (strcmp(p_entrainement->lepreuve.nom, "relais") == 0) {
+        sprintf(epreuve, "relais(%d)", p_entrainement->lepreuve.position_relais);
+    } else {
+        strcpy(epreuve, p_entrainement->lepreuve.nom);
+    }
+
+    printf("entrainement %2d -> date : %s, l'epreuve : %9s,  la perf : %s \n",
+        i,
+        get_date_printable(p_entrainement->ladate),
+        epreuve,
+        get_perf_printable(p_entrainement->laperf));
+
+}
+
+
 
 
 // ecris tous les entrainement d'un athlete dans son fichier
@@ -153,7 +172,7 @@ void writeArrayOftrainingTOfile(const char* nomFichier, entrainement** tab_entra
     for (int i = 0; i < nbEntrainement; i++) {
         fprintf(fichier, "%d;%d;%d;%d;%d;%s;%.2lf;%d\n", 
         tab_entrainement[i]->ladate.jour,
-        tab_entrainement[i]->ladate.heure,  
+        tab_entrainement[i]->ladate.mois,  
         tab_entrainement[i]->ladate.annee,  
         tab_entrainement[i]->ladate.heure,  
         tab_entrainement[i]->ladate.min,     
@@ -192,12 +211,12 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
     //double perf;
 
 
-
-    jour = demande_a_l_utilisateur_un_entier("rentre le jour",1,31);
-    mois = demande_a_l_utilisateur_un_entier("rentre le mois",1,12);
-    annee = demande_a_l_utilisateur_un_entier("rentre l'année",2000,2024);
-    heure = demande_a_l_utilisateur_un_entier("rentre les heures",0,24);
-    min = demande_a_l_utilisateur_un_entier("rentre les minutes",0,60);
+    printf("\nDate de l'entrainement ?\n");
+    jour  = demande_a_l_utilisateur_un_entier("jour",1,31);
+    mois  = demande_a_l_utilisateur_un_entier("mois",1,12);
+    annee = demande_a_l_utilisateur_un_entier("année",2000,2024);
+    heure = demande_a_l_utilisateur_un_entier("heure",0,24);
+    min   = demande_a_l_utilisateur_un_entier("minutes",0,60);
 
     transforme_en_date(jour, mois, annee, heure, min, &ladate);
 
@@ -205,9 +224,14 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
     // menu choix epreuve
     //displayMenuChoixUneEpreuveATaper(epeuve);
 
-    
-    demande_a_l_utilisateur_une_perf(&laperf);
+        
+    if(strcmp(epeuve, "marathon")==0){
+        demande_a_l_utilisateur_une_perf_marathon(&laperf);
 
+    }
+    else{
+         demande_a_l_utilisateur_une_perf(&laperf);
+    }
 
     if(strcmp(epeuve, "relais")==0)
         position_relais = demande_a_l_utilisateur_un_entier(" Quelle était sa position dans le relai",1,4);

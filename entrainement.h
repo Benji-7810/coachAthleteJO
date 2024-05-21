@@ -10,6 +10,7 @@ entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nb_ent
 
 void printArrayOfentrainement(entrainement** TAB_DATA, int nbEntrainement);
 
+void print1entrainement(entrainement* p_entrainement, int i);
 
 void writeArrayOftrainingTOfile(const char* nomFichier, entrainement** tab_entrainement, int  nbEntrainement);
 
@@ -34,6 +35,7 @@ void addNewEntrainementDansTab(entrainement** tab_entrainement, int* nbEntrainem
 // 2. ajout l'entrainement
 // 3. reecris le fichier
 void addNewEntrainementDansFichier(const char* nomAthlete, entrainement* p_new_entrainement);
+
 
 
 #endif

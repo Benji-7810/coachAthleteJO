@@ -66,29 +66,11 @@
       
 
 //     }
-//     return demande_a_l_utilisateur_un_entier("\nquelle choix veux tu choisir ?", 1, nb_option);
+//     return demande_a_l_utilisateur_un_entier("\nquel choix veux tu choisir ?", 1, nb_option);
 
     
 // }
     
-
-
-
-// int displayMenuPrincipal(){
-
-//     int nb_option=5;
-
-//     char *tab[] = { 
-//         "performances athletes",
-//         "satistique des athletes",
-//         "afficher_la_liste_des_athletes",
-//         "ajouter_des_athletes",
-//         "rage_quit"
-//     };
-
-    
-//     return displayMenuGeneric(tab, nb_option);
-// }
 
 
 // // format: JJ/MM/AAAA HH:MM
@@ -139,7 +121,7 @@
 int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
     int nombre;
     do{
-        printf("%s  entre %d et %d : ", question, min ,max);
+        printf("%s  (entre %d et %d) : ", question, min ,max);
         scanf("%d", &nombre);
     }while(nombre<min || max<nombre);
 
@@ -195,7 +177,7 @@ int displayMenuGeneric(char* tab_option[], int nb_option){
       
 
     }
-    return demande_a_l_utilisateur_un_entier("\nquelle choix veux tu choisir ?", 1, nb_option);
+    return demande_a_l_utilisateur_un_entier("\nquel choix veux tu choisir ?", 1, nb_option);
 
     
 }
@@ -208,13 +190,30 @@ int displayMenuPrincipal(){
     int nb_option=5;
 
     char *tab[] = { 
-        "performances athletes",
-        "satistique des athletes",
-        "afficher_la_liste_des_athletes",
-        "ajouter_des_athletes",
-        "rage_quit"
+        "ajouter un entrainement",
+        "consulter les statistiques des athletes",
+        "afficher la liste des athletes",
+        "ajouter un athlete",
+        "QUITTER"
     };
+	
+    
+    return displayMenuGeneric(tab, nb_option);
+}
 
+
+int displayMenuStatistiquesAthlete(){
+
+    int nb_option=5;
+
+    char *tab[] = { 
+        "consulter les entrainements d'un athlete par date",
+        "consulter les entrainements d'un athlete par epreuve",
+        "performances clés d’un athlète",
+        "Qui envoyer au JO",
+        "Progression de l’athlète",
+        "RETOUR"
+    };
 	
     
     return displayMenuGeneric(tab, nb_option);
@@ -239,13 +238,14 @@ int displayMenuChoixUneEpreuve(){
 void displayMenuChoixUneEpreuveATaper(char* epreuve)
 {
     do {
-        printf("\nEntre le type d'épreuve (ex 100m / 400m / 5000m / marathon / relais): ");
+        printf("\nEntre le type d'épreuve (ex 100m / 400m / 5000m / marathon / relais / 'retour'): ");
         scanf("%s", epreuve);
     } while (strcmp(epreuve, "100m") != 0 
     && strcmp(epreuve, "400m") != 0 
     && strcmp(epreuve, "5000m") != 0 
     && strcmp(epreuve, "marathon") != 0 
-    && strcmp(epreuve, "relais") != 0);
+    && strcmp(epreuve, "relais") != 0
+    && strcmp(epreuve, "retour") != 0);
 
 }											  
 									
@@ -358,14 +358,56 @@ void demande_a_l_utilisateur_une_date(date* date_relais) {
 
 
 void demande_a_l_utilisateur_une_perf(performance* laperf) {
-    printf("\ntemps en sec (ex: '9.32', '12.00' ? ");
-    scanf("%lf", &(laperf->perf)); // On lit un double au lieu d'un entier
+    
+    int min;
+    float seconde;
 
+    printf("\ntemps de le perf:");
+
+    do{
+        printf("\nmin (ex: '0', '1', '13', '12') ? ");
+        scanf("%d",&min);
+    }while(min<0 || min>59);
+
+    do{
+        printf("\nsec (ex: '9.32', '12.00' ? ");
+        scanf("%f", &(seconde)); // On lit un double au lieu d'un entier  
+    }while(seconde<0 || seconde>59);
+
+    laperf->perf =(min*60)+seconde;
     // for debug
     // printf("\ndemande_a_l_utilisateur_une_perf : OK\n");
 }
 
-   
+void demande_a_l_utilisateur_une_perf_marathon(performance* laperf) {
+    int min ;
+    float seconde;
+    int heure;
+
+    printf("\ntemps de le perf:");
+
+    do{
+        printf("\nheure (ex: '1', '2' ? )");
+        scanf("%d",&heure);
+    }while(heure<0);
+
+
+    do{
+        printf("\nmin (ex: '0', '1', '13', '12') ? ");
+        scanf("%d",&min);
+    }while(min<0 || min>59);
+
+    do{
+        printf("\nsec (ex: '9.32', '12.00' ? ");
+        scanf("%f", &(seconde)); // On lit un double au lieu d'un entier  
+    }while(seconde<0 || seconde>59);
+
+
+    laperf->perf = (heure*3600) + (min*60) + seconde;
+
+    // for debug
+    // printf("\ndemande_a_l_utilisateur_une_perf : OK\n");
+}
 											
  
 															   

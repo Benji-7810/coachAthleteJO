@@ -13,6 +13,7 @@
 
 
 
+
 void afficherEntrainements(entrainement** tabEntrainements, int nbTotalEntrainements);
 
 //entrainement** genererTableauEntrainements(const char* fichierAthletes, int* nbTotalEntrainements, const char* epreuve);

@@ -43,6 +43,7 @@ typedef struct{
     date ladate;
     epreuve lepreuve; 
     performance laperf;
+    char nom[100];
 } entrainement;
 
 
@@ -54,6 +55,7 @@ typedef struct {
     int compteur;          // Nombre d'entrainements pour cet athlète
     double somme_temps;    // Somme des temps pour calculer la moyenne
 } StatistiquesAthlete;
+
 
 
 

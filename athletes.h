@@ -14,7 +14,8 @@ void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes);
 
 
 // add new athlete to array
-void addNewAthlete(athlete** tab_athletes, int* nbAthletes);
+// return 1 if OK else 0
+int addNewAthlete(athlete** tab_athletes, int* nbAthletes);
 
 // rewrite all athletes from array to file
 void writeArrayOfAthleteTOfile(const char* nomFichier, athlete** tab_athletes, int  nbAthletes);

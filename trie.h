@@ -22,8 +22,7 @@ void affiche_pire_meilleur_temps(entrainement** tab_entrainement_epreuve, int nb
 
 entrainement** print_entrainements_trier(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve, int *nb_filtre) ;
 
-void trie_perf(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve);
-
+void trie_entrainement_par_perf(entrainement** tab_entrainement, int nb_entrainement);
 
 void swap(entrainement** a, entrainement** b);
 

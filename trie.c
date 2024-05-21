@@ -18,19 +18,39 @@ void swap(entrainement** a, entrainement** b) {
     *b = temp;
 }
 
-void trie_perf(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve) {
+void trie_entrainement_par_perf(entrainement** tab_entrainement, int nb_entrainement) {
+    
+    // tri par position relais
     for (int i = 1; i < nb_entrainement; i++) {
+       
         entrainement* key = tab_entrainement[i];
         int j = i - 1;
 
         // Vérifie si l'épreuve correspond et que la performance est inférieure (meilleure)
-        while (j >= 0 && strcmp(tab_entrainement[j]->lepreuve.nom, epreuve) == 0 && tab_entrainement[j]->laperf.perf > key->laperf.perf) {
+        while (j >= 0  && tab_entrainement[j]->lepreuve.position_relais > key->lepreuve.position_relais) {
+            tab_entrainement[j + 1] = tab_entrainement[j];
+            j--;
+        }
+
+        tab_entrainement[j + 1] = key;
+    }
+
+    // tri par position perf
+    for (int i = 1; i < nb_entrainement; i++) {
+       
+        entrainement* key = tab_entrainement[i];
+        int j = i - 1;
+
+        // Vérifie si l'épreuve correspond et que la performance est inférieure (meilleure)
+        while (j >= 0  && tab_entrainement[j]->laperf.perf > key->laperf.perf) {
             tab_entrainement[j + 1] = tab_entrainement[j];
             j--;
         }
         tab_entrainement[j + 1] = key;
     }
+
 }
+
 
 entrainement** print_entrainements_trier(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve, int *nb_filtre) {
     entrainement** tab_entrainement_epreuve = malloc(nb_entrainement * sizeof(entrainement*));
@@ -49,7 +69,8 @@ entrainement** print_entrainements_trier(entrainement** tab_entrainement, int nb
         }
     }
 
-    trie_perf(tab_entrainement_epreuve, *nb_filtre, epreuve);
+    //trie_perf(tab_entrainement_epreuve, *nb_filtre, epreuve);
+    trie_entrainement_par_perf(tab_entrainement_epreuve, *nb_filtre);
 
     // for (int i = 0; i < *nb_filtre; i++) {
     //     printf("Date: %d/%d/%d %d:%d, Performance: %.2f sec\n",
@@ -127,7 +148,7 @@ int compare_date1_date2(const date *date1, const date *date2) {
     return 0;
 }
 
-
+// OK
 void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entrainement) {
     for (int i = 1; i < nb_entrainement; i++) {
         entrainement* key = tab_entrainement[i];
@@ -162,7 +183,8 @@ void print_un_entrainement(entrainement* p_entrainement) {
 }
 
 
-
+/*
+NE PAS UTILISER
 // Fonction pour afficher les entrainements triés par date pour une épreuve spécifique
 void print_entrainements_tries_par_date(entrainement** tab_entrainement, int nb_entrainement) {
 
@@ -177,6 +199,7 @@ void print_entrainements_tries_par_date(entrainement** tab_entrainement, int nb_
     }
 
 }
+*/
 
 
 // Fonction pour afficher les entrainements triés par date pour une épreuve spécifique
@@ -191,6 +214,7 @@ void print_entrainements_tries_par_epreuve(entrainement** tab_entrainement, int 
     print_entrainement_par_epreuve(tab_entrainement, nb_entrainement, "400m");
     print_entrainement_par_epreuve(tab_entrainement, nb_entrainement, "5000m");
     print_entrainement_par_epreuve(tab_entrainement, nb_entrainement, "marathon");
+    print_entrainement_par_epreuve(tab_entrainement, nb_entrainement, "relais");
 
 }
 
@@ -199,13 +223,20 @@ void print_entrainements_tries_par_epreuve(entrainement** tab_entrainement, int 
 void print_entrainement_par_epreuve(entrainement** tab_entrainement, int nb_entrainement, const char* nom_epreuve) {
 
  
-    printf("\n\n%s\n", nom_epreuve);
+    printf("\n\n %s\n", nom_epreuve);
+    printf("************\n");
+
+    int j = 1;
 
     // affiche tous les entrainements
     for (int i = 0; i < nb_entrainement; i++) {
 
         if (strcmp(tab_entrainement[i]->lepreuve.nom, nom_epreuve) == 0) {
-            print_un_entrainement(tab_entrainement[i]);
+            
+            print1entrainement(tab_entrainement[i], j);
+            j++;
+            
+            //print_un_entrainement(tab_entrainement[i]);
         }
 
     }

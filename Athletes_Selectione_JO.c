@@ -15,6 +15,9 @@
 #define MAX_ATHLETES 100
 #define FILE_ATHLETES "data/athletes.csv"
 
+#define NB_ATHLETES_PAR_GROUPE 4
+#define NB_MEILLEURS_GROUPES 3
+
 
 
 // Fonction hypothétique pour lire les athlètes depuis un fichier
@@ -23,7 +26,6 @@ athlete** readAthletesFromFile(const char* fichierAthletes, int* nbAthletes);
 // Fonction hypothétique pour lire les entraînements d'un athlète depuis un fichier
 entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nbEntrainements);
 
-// Fonction pour générer un tableau avec tous les entraînements correspondant à une épreuve donnée pour chaque athlète
 entrainement** genererTableauEntrainements(const char* fichierAthletes, int* nbTotalEntrainements, const char* epreuve) {
     int nbAthletes;
     athlete** tabAthletes = readAthletesFromFile(fichierAthletes, &nbAthletes);
@@ -53,16 +55,25 @@ entrainement** genererTableauEntrainements(const char* fichierAthletes, int* nbT
                     continue; // En cas d'échec d'allocation
                 }
 
-                // Copie des informations dans la structure nouvelEntrainement, en utilisant le nom de l'athlète
+                // Copie des informations dans la structure nouvelEntrainement
                 nouvelEntrainement->ladate = entrainementsAthlete[j]->ladate;
-                strncpy(nouvelEntrainement->lepreuve.nom, tabAthletes[i]->prenom_nom, sizeof(nouvelEntrainement->lepreuve.nom) - 1);  // Utiliser le nom de l'athlète
+                
+                // epreuve nom 
+                strcpy(nouvelEntrainement->lepreuve.nom, entrainementsAthlete[j]->lepreuve.nom);
+
+                // epreuve position relais
                 nouvelEntrainement->lepreuve.position_relais = entrainementsAthlete[j]->lepreuve.position_relais;
+                
+                // la perf
                 nouvelEntrainement->laperf = entrainementsAthlete[j]->laperf;
+
+                // Ajouter le nom de l'athlète
+                strcpy(nouvelEntrainement->nom, tabAthletes[i]->prenom_nom);
+
 
                 tabEntrainements[totalEntrainements++] = nouvelEntrainement;
             }
         }
-        
 
         // Libérer la mémoire allouée pour les entraînements de cet athlète
         free(entrainementsAthlete);
@@ -73,22 +84,42 @@ entrainement** genererTableauEntrainements(const char* fichierAthletes, int* nbT
 }
 
 void afficherEntrainements(entrainement** tabEntrainements, int nbTotalEntrainements) {
+    
+    char epreuve[20];
+
     if (tabEntrainements == NULL || nbTotalEntrainements == 0) {
         printf("Aucun entraînement à afficher.\n");
         return;
     }
+    
+    // tri    
+    trie_entrainement_par_perf(tabEntrainements, nbTotalEntrainements);
+
 
     printf("Liste complète des entraînements filtrés :\n\n");
     for (int i = 0; i < nbTotalEntrainements; i++) {
         if (tabEntrainements[i] == NULL) continue; // Ignore les pointeurs NULL
 
-        // Affichage de l'entraînement - l'information est supposée être en format de chaîne unique avec tous les détails
-        printf("Athlète: %s, Date: %s, Épreuve: %s, Performance: %.2f secondes\n\n",
-               tabEntrainements[i]->lepreuve.nom, // Nom de l'athlète et autres détails
-            get_date_printable(tabEntrainements[i]->ladate),
-               tabEntrainements[i]->lepreuve.nom,
-               tabEntrainements[i]->laperf.perf);
+
+
+
+        // special "relais"
+        if (strcmp(tabEntrainements[i]->lepreuve.nom, "relais") == 0) {
+            sprintf(epreuve, "relais(%d)", tabEntrainements[i]->lepreuve.position_relais);
+        } else {
+            strcpy(epreuve, tabEntrainements[i]->lepreuve.nom);
+        }
+
+        // Affichage de l'entraînement
+        printf("Athlète: %20s, Date: %s, Épreuve: %s, Performance: %s \n",
+               tabEntrainements[i]->nom, // Nom de l'athlète
+               get_date_printable(tabEntrainements[i]->ladate),
+               epreuve,
+               get_perf_printable(tabEntrainements[i]->laperf));
+    
     }
+    
+
 }
 
 
@@ -123,12 +154,15 @@ void afficherEntrainementsTries(entrainement **tabEntrainements, int nbTotalEntr
         if (tabEntrainements[i] == NULL) continue; // Ignore les pointeurs NULL
 
         // Affichage de l'entraînement
-        printf("Athlète: %s, Date: %s, Épreuve: %s, Performance: %.2f secondes\n",
+        printf("Athlète: %s, Date: %s, Épreuve: %s, Performance: %s\n",
                tabEntrainements[i]->lepreuve.nom,
-                 get_date_printable(tabEntrainements[i]->ladate),
+               get_date_printable(tabEntrainements[i]->ladate),
                tabEntrainements[i]->lepreuve.nom,
-               tabEntrainements[i]->laperf.perf);
+               get_perf_printable(tabEntrainements[i]->laperf));
+
+     
     }
+   
 }
 
 
@@ -242,3 +276,6 @@ void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes) {
 }
 
 
+void si_relais(entrainement **tabEntrainements, int nbTotalEntrainements, int* nbAthletes){
+    
+}

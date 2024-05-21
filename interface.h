@@ -19,7 +19,7 @@ int numero_jour( date d);
 int nombre_jours(date d1, date d2);
 
 int displayMenuPrincipal();
-
+int displayMenuStatistiquesAthlete();
 
 // format: JJ/MM/AAAA HH:MM
 void print_date(date ladate);
@@ -32,6 +32,8 @@ void transforme_en_date(int jour, int mois, int annee, int heure, int min, date*
 void demande_a_l_utilisateur_une_date( date*date_relais);
 
 void demande_a_l_utilisateur_une_perf(performance* laperf);
+
+void demande_a_l_utilisateur_une_perf_marathon(performance* laperf);
 
 void transforme_en_perf(double perf, performance* laperf);
 
