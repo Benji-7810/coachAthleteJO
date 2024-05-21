@@ -382,9 +382,11 @@ int main() {
                                         afficherStatistiques(stats, nbAthletes);
                                         }
                                         // choix relais
-                                        else{
+                                        else{   
+                                                // j'ai mis en commentaire l'affichage mais elle continue de trier par perf d'ou son utilité
                                                 afficherEntrainements(tab_tout_les_athletes,nbTotalEntrainements);
-                                                printf("pas encore fait");
+                                                affiche_athletes_relais(tab_tout_les_athletes);
+                                                
                                         }
                                         break;
 

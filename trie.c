@@ -35,7 +35,7 @@ void trie_entrainement_par_perf(entrainement** tab_entrainement, int nb_entraine
         tab_entrainement[j + 1] = key;
     }
 
-    // tri par position perf
+    // tri par position relais
     for (int i = 1; i < nb_entrainement; i++) {
        
         entrainement* key = tab_entrainement[i];
@@ -50,7 +50,6 @@ void trie_entrainement_par_perf(entrainement** tab_entrainement, int nb_entraine
     }
 
 }
-
 
 entrainement** print_entrainements_trier(entrainement** tab_entrainement, int nb_entrainement, const char* epreuve, int *nb_filtre) {
     entrainement** tab_entrainement_epreuve = malloc(nb_entrainement * sizeof(entrainement*));
@@ -163,6 +162,37 @@ void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entraine
     }
 }
 
+void affiche_athletes_relais(entrainement** tab_entrainement){
+    printf("\nvoici les 3 meilleur groupe d'atheltes\n");
+
+    //premier groupe
+    printf("\nMeilleur groupe  1- %s,   2- %s,   3- %s,   4 %16s avec un temps de %s\n",
+    tab_entrainement[0]->nom,
+    tab_entrainement[1]->nom,
+    tab_entrainement[2]->nom,
+    tab_entrainement[3]->nom,
+    //tab_entrainement[0]->laperf.perf);
+    get_perf_printable(tab_entrainement[0]->laperf));
+
+    // deuxieme groupe
+    printf("\nDeuxieme groupe  1- %s,   2- %s,   3- %s,   4 %16s avec un temps de %s\n",
+    tab_entrainement[4]->nom,
+    tab_entrainement[5]->nom,
+    tab_entrainement[6]->nom,
+    tab_entrainement[7]->nom,
+    //tab_entrainement[0]->laperf.perf);
+    get_perf_printable(tab_entrainement[4]->laperf));
+
+    //troisieme groupe
+     printf("\nTroisieme groupe 1- %s,   2- %s,   3- %s,   4 %16s avec un temps de %s\n",
+    tab_entrainement[8]->nom,
+    tab_entrainement[9]->nom,
+    tab_entrainement[10]->nom,
+    tab_entrainement[11]->nom,
+    //tab_entrainement[0]->laperf.perf);
+    get_perf_printable(tab_entrainement[8]->laperf));
+
+}
 
 // affiche un entrainement sur une ligne
 // ex: 

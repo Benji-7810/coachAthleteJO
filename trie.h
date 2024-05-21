@@ -49,3 +49,6 @@ void print_entrainements_tries_par_epreuve(entrainement** tab_entrainement, int 
 // ex: 
 // Date: 15/05/2024 11:08, Performance: 1101.36 sec, epreuve: 5000m
 void print_un_entrainement(entrainement* p_entrainement);
+
+//affiche les meilleur groupe de relais
+void affiche_athletes_relais(entrainement** tab_entrainement);

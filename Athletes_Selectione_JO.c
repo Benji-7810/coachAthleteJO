@@ -96,7 +96,7 @@ void afficherEntrainements(entrainement** tabEntrainements, int nbTotalEntrainem
     trie_entrainement_par_perf(tabEntrainements, nbTotalEntrainements);
 
 
-    printf("Liste complète des entraînements filtrés :\n\n");
+    //printf("Liste complète des entraînements filtrés :\n\n");
     for (int i = 0; i < nbTotalEntrainements; i++) {
         if (tabEntrainements[i] == NULL) continue; // Ignore les pointeurs NULL
 
@@ -111,11 +111,12 @@ void afficherEntrainements(entrainement** tabEntrainements, int nbTotalEntrainem
         }
 
         // Affichage de l'entraînement
-        printf("Athlète: %20s, Date: %s, Épreuve: %s, Performance: %s \n",
-               tabEntrainements[i]->nom, // Nom de l'athlète
-               get_date_printable(tabEntrainements[i]->ladate),
-               epreuve,
-               get_perf_printable(tabEntrainements[i]->laperf));
+        //mis en commentaire mais peux le remttre 
+        // printf("Athlète: %20s, Date: %s, Épreuve: %s, Performance: %s \n",
+        //        tabEntrainements[i]->nom, // Nom de l'athlète
+        //        get_date_printable(tabEntrainements[i]->ladate),
+        //        epreuve,
+        //        get_perf_printable(tabEntrainements[i]->laperf));
     
     }
     
