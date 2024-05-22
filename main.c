@@ -27,10 +27,7 @@ int main() {
 
     int num_athlete = 0;
 
-    //int choix_temps_ou_perf = 0;
-
     char nom_epreuve[100];        
-    //entrainement** tab_entrainement = lis_un_fichier_d_entrainement(FILE_entrai, &nbEntrainement );
     
     // load athletes from file
     athlete** tab_athletes = readAthletesFromFile(FILE_ATHLETES, &nbAthletes);
@@ -71,7 +68,6 @@ int main() {
                                 printArrayOfAthlete(tab_athletes, nbAthletes);
                         
                                 // choix de l'athlete
-                                //printArrayOfAthlete(tab_athletes, nbAthletes);
                                 num_athlete = demande_a_l_utilisateur_un_entier_sans_affichage
                                 ("\nChoisis un athlete parmis cette liste d'athletes pour ajouter l'entrainement\n", 1, nbAthletes);
                                 
@@ -115,6 +111,7 @@ int main() {
                                 performance laperf;
                                 entrainement* p_new_entrainement;
 
+                                // Affichage de la liste des athlètes disponibles
                                 printArrayOfAthlete(tab_athletes, nbAthletes);
 
                                 entrainement*** tab_d_entrainements_relais = malloc(sizeof(entrainement**) * 4);
@@ -125,9 +122,10 @@ int main() {
                                 
                                 //athlete 2
                                 int i=0;
-                                do {
+                                do {    
+                                        // si l'athlete déja pris 
                                         if (i > 0) { 
-                                        printf("\nDeja choisi !! un autre stp"); 
+                                                printf("\nDeja choisi !! un autre stp"); 
                                         }
                                         tab_athlete_relais[1] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°2: ", 1, nbAthletes)-1;
                                         i++;
@@ -162,11 +160,13 @@ int main() {
                                         || tab_athlete_relais[3]==tab_athlete_relais[1]
                                         || tab_athlete_relais[3]==tab_athlete_relais[2]);
 
+                                
                                 // choix date
                                 demande_a_l_utilisateur_une_date(&date_relais);
 
                                 // perf globale
                                 printf("Quel a été le chrono du relais ? ");
+                               
                                 demande_a_l_utilisateur_une_perf(&laperf);
 
 
@@ -189,32 +189,7 @@ int main() {
 
 
 
-                                        //for debug
-                                        //print_un_entrainement(p_new_entrainement);
-
-                                        // for debug
-                                        //printf("\najout de la perf pour chaque athlete : %d", i);
-
-                                        //addNewEntrainementDansTab(tab_d_entrainements_relais[i], &nbEntrainement_relais[i], p_new_entrainement);
-
-                                        //printf("\nDEBUG ligne : %d OK\n", __LINE__);
-
-
-                                        // for debug
-                                        //printf("\najout de la perf pour chaque athlete : %i OK", i);
-
                                         
-                                        // nom de fichier
-                                        //sprintf(filename, "data/%s.csv", tab_athletes[indice_athlete]->prenom_nom);
-
-
-                                        // lit le fichier d'entrainement de l'athlete
-                                        // ajout le relais dans le tableau d'entrainement de l'athlete
-
-
-                                        // reecris le fichier 
-                                        //writeArrayOftrainingTOfile(filename, tab_d_entrainements_relais[i], nbEntrainement_relais[i]);
-                                        //printf("\nMon relais %d: %s\n", (i +1 ), tab_athletes[indice_athlete]->prenom_nom);
                                 }
 
                                 
@@ -247,64 +222,77 @@ int main() {
                                 // consulter les entrainement d'un athlete par date
                                 case 1:
                                 
-                                        printf("\n\n");
-                               
-                                        printArrayOfAthlete(tab_athletes, nbAthletes);
-                                
-                                        // choix de l'athlete
-                                        do{
-                                                printf("\nQuel Athlete ? ");
-                                                scanf("%d", &num_athlete);
-                                        }while(num_athlete<0 || num_athlete> nbAthletes);
-
-                                        // generation du nom de fichier
-                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
+                                                printf("\n\n");
+                                                printArrayOfAthlete(tab_athletes, nbAthletes);
+                                                
+                                                // Choix de l'athlète
+                                                do {
+                                                        printf("\nQuel Athlete ? ");
+                                                        scanf("%d", &num_athlete);
+                                                } while(num_athlete < 0 || num_athlete > nbAthletes);
 
 
-                                        if ( !fichier_existe(filename) ) {
-                                                printf("\nfichier introuvable : '%s'\n", filename);
-                                                printf("Par conséquent le fichier a été créé");
-                                                creer_fichier_si_non_existant(filename);
-                                        }
-                                
-                                        
-                                        tab_entrainement_ath = lis_un_fichier_d_entrainement(filename, &nbEntrainement_ath);
+                                                // Génération du nom de fichier
+                                                sprintf(filename, "data/%s.csv", tab_athletes[num_athlete - 1]->prenom_nom);
 
+                                                // Vérification de l'existence du fichier
+                                                if (!fichier_existe(filename)) {
+                                                        printf("\nFichier introuvable : '%s'\n", filename);
+                                                        printf("Par conséquent le fichier a été créé.\n");
+                                                        creer_fichier_si_non_existant(filename);
+                                                }
 
-                                        printf("\nhistorique des entrainements\n\n");
+                                                // Lecture des entraînements à partir du fichier
+                                                tab_entrainement_ath = lis_un_fichier_d_entrainement(filename, &nbEntrainement_ath);
 
-                                        if( nbEntrainement_ath == 0 ) {
-                                                printf("\nPas encore d'entrainement enregistré\n\n");
-                                        }
-                                
-                                        // tri par date
-                                        trie_entrainement_par_date(tab_entrainement_ath, nbEntrainement_ath);
-                                        
-                                        // affichage
-                                        printArrayOfentrainement  (tab_entrainement_ath, nbEntrainement_ath);
+                                                
+                                                printf("\nHistorique des entraînements :\n\n");
+
+                                                
+                                                if (nbEntrainement_ath == 0) {
+                                                        printf("Pas encore d'entraînement enregistré.\n\n");
+                                                }
+
+                                                
+                                                // Tri des entraînements par date
+                                                trie_entrainement_par_date(tab_entrainement_ath, nbEntrainement_ath);
+                                                
+                                                
+                                                // Affichage des entraînements
+                                                printArrayOfentrainement(tab_entrainement_ath, nbEntrainement_ath);
+                                                
+                                                break;
                                         
                                         
                                         break;
 
                                case 2:
-                                        // entrainement par epreuve
+                                        // Entraînements par épreuve
+
+                                        // Affiche la liste des athlètes
                                         printArrayOfAthlete(tab_athletes, nbAthletes);
-                        
-                                        // choix de l'athlete
-                                        do{
-                                                printf("\nChoisis un athlete parmis cette liste de %d athletes pour ajouter l'avancer de son entrainement par épreuve\n", nbAthletes);
+
+
+                                        // Choix de l'athlète parmi la liste
+                                        do {
+                                                printf("\nChoisis un athlète parmi cette liste de %d athlètes pour ajouter l'avancement de son entraînement par épreuve\n", nbAthletes);
                                                 scanf("%d", &num_athlete);
-                                        }while(num_athlete<0 || num_athlete> nbAthletes);
+                                        } while (num_athlete < 0 || num_athlete > nbAthletes);
 
 
-                                        printf("\nnom de l'athlete choisi : '%s'\n\n", tab_athletes[num_athlete-1]->prenom_nom);
+                                        // Affiche le nom de l'athlète choisi
+                                        printf("\nNom de l'athlète choisi : '%s'\n\n", tab_athletes[num_athlete - 1]->prenom_nom);
 
-                                                                      
-                                        // generation du nom de fichier
-                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
 
-                                        
-                                        tab_entrainement_ath = lis_un_fichier_d_entrainement(filename, &nbEntrainement_ath );
+                                        // Génération du nom de fichier pour l'athlète choisi
+                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete - 1]->prenom_nom);
+
+
+                                        // Lis les entraînements de l'athlète à partir du fichier
+                                        tab_entrainement_ath = lis_un_fichier_d_entrainement(filename, &nbEntrainement_ath);
+
+
+                                        // Affiche les entraînements triés par épreuve
                                         print_entrainements_tries_par_epreuve(tab_entrainement_ath, nbEntrainement_ath);
 
                                         break;
@@ -313,164 +301,176 @@ int main() {
 
                                 case 3:
                                         // Progression de l’athlète
+
+                                        // Affiche la liste des athlètes
                                         printArrayOfAthlete(tab_athletes, nbAthletes);
-                        
-                                        // choix de l'athlete
-                                        do{
-                                                printf("\nChoisis un athlete parmis cette liste de %d athletes pour ajouter l'avancer de son entrainement par épreuve\n", nbAthletes);
+
+                                        // Choix de l'athlète parmi la liste
+                                        do {
+                                                printf("\nChoisis un athlète parmi cette liste de %d athlètes pour ajouter l'avancement de son entraînement par épreuve\n", nbAthletes);
                                                 scanf("%d", &num_athlete);
-                                        }while(num_athlete<0 || num_athlete> nbAthletes);
+                                        } while (num_athlete < 0 || num_athlete > nbAthletes);
 
 
-                                        printf("\nnom de l'athlete choisi : '%s'\n\n", tab_athletes[num_athlete-1]->prenom_nom);
-
-                                                                      
-                                        // generation du nom de fichier
-                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
-
-                                        
-                                        tab_entrainement_ath = lis_un_fichier_d_entrainement(filename, &nbEntrainement_ath );
+                                        // Affiche le nom de l'athlète choisi
+                                        printf("\nNom de l'athlète choisi : '%s'\n\n", tab_athletes[num_athlete - 1]->prenom_nom);
 
 
+                                        // Génère le nom de fichier pour l'athlète choisi
+                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete - 1]->prenom_nom);
+
+
+                                        // Lis les entraînements de l'athlète à partir du fichier
+                                        tab_entrainement_ath = lis_un_fichier_d_entrainement(filename, &nbEntrainement_ath);
+
+
+                                        // Affiche le menu pour choisir une épreuve à taper
                                         displayMenuChoixUneEpreuveATaper(nom_epreuve);
+
+
+                                        // Si l'utilisateur choisit de revenir en arrière, sort de la boucle
                                         if (strcmp(nom_epreuve, "retour") == 0) {
                                                 break;
                                         }
-                                        printf("\n");
-                                        printf("\n");
-                                        
-                                        //trie_perf(tab_entrainement_ath, nbEntrainement_ath, nom_epreuve);
+
+
+                                        // Trie les entraînements de l'athlète par performance
                                         trie_entrainement_par_perf(tab_entrainement_ath, nbEntrainement_ath);
 
-                                        entrainement**tab_entrainement_epreuve = print_entrainements_trier(tab_entrainement_ath, nbEntrainement_ath, nom_epreuve,&j);
-                                        
+
+                                        // Affiche les entraînements triés par épreuve
+                                        entrainement** tab_entrainement_epreuve = print_entrainements_trier(tab_entrainement_ath, nbEntrainement_ath, nom_epreuve, &j);
+
                                         printf("\n");
 
+
+                                        // Affiche le meilleur et le pire temps ainsi que la moyenne des performances pour l'épreuve choisie
                                         affiche_pire_meilleur_temps(tab_entrainement_epreuve, j);
-        
+
                                         break;
 
                                 
                                 case 4 :
                                         
-                                        // Qui envoyer au JO
+                                        // Qui envoyer aux JO
+
+                                        // Affiche le menu pour choisir une épreuve à taper
                                         displayMenuChoixUneEpreuveATaper(nom_epreuve);
+
+
+                                        // Si l'utilisateur choisit de revenir en arrière, sort de la boucle
                                         if (strcmp(nom_epreuve, "retour") == 0) {
                                                 break;
                                         }
-                                        printf("\n");printf("\n");
-                                        entrainement** tab_tout_les_athletes = genererTableauEntrainements(FILE_ATHLETES,&nbTotalEntrainements,nom_epreuve);
 
-                                        //afficherEntrainements(tab_tout_les_athletes,nbTotalEntrainements);
+                                        // Génère un tableau d'entraînements pour tous les athlètes pour l'épreuve choisie
+                                        entrainement** tab_tout_les_athletes = genererTableauEntrainements(FILE_ATHLETES, &nbTotalEntrainements, nom_epreuve);
 
-                                        //afficherEntrainementsTries(tab_tout_les_athletes, nbTotalEntrainements);
-                                        
-                                        // si pas relais
-                                        if (strcmp(nom_epreuve, "relais") != 0){
-                                        printf("\n");
-                                        printf("\n");
-                                        printf("\n");
 
-                                     
+                                        // Si l'épreuve n'est pas un relais
+                                        if (strcmp(nom_epreuve, "relais") != 0) {
 
-                                        StatistiquesAthlete*stats = calculerStatistiques(tab_tout_les_athletes,nbTotalEntrainements, &nbAthletes);
+                                                // Calcule et affiche les statistiques des athlètes pour l'épreuve choisie
+                                                StatistiquesAthlete* stats = calculerStatistiques(tab_tout_les_athletes, nbTotalEntrainements, &nbAthletes);
+                                                afficherStatistiques(stats, nbAthletes);
+                                        } 
+                                        // Si l'épreuve est un relais
+                                        else {
 
-                                        //affichetab(stats,nbAthletes);
-                                        //printf("\n\n\n\n%d\n\n\n\n\n",nbAthletes);
-                                        //trie_entrainement_par_perf(stats)
-                                     
-                                        afficherStatistiques(stats, nbAthletes);
-                                        }
-                                        // choix relais
-                                        else{   
-                                                // j'ai mis en commentaire l'affichage mais elle continue de trier par perf d'ou son utilité
-                                                afficherEntrainements(tab_tout_les_athletes,nbTotalEntrainements);
+                                                // Affiche les entraînements des athlètes pour l'épreuve de relais et les meilleurs groupes
+                                                afficherEntrainements(tab_tout_les_athletes, nbTotalEntrainements);
                                                 affiche_athletes_relais(tab_tout_les_athletes);
-                                                
                                         }
+
                                         break;
 
                                 case 5:
                                         // Progression de l’athlète
+
+                                        // Affiche la liste des athlètes disponibles
                                         printArrayOfAthlete(tab_athletes, nbAthletes);
 
-                                        do{
-                                        printf("\nChoisis un athlete parmis cette liste de %d athletes pour ajouter l'avancer de son entrainement par épreuve\n", nbAthletes);
-                                        scanf("%d", &num_athlete);
-                                        }while(num_athlete<0 || num_athlete> nbAthletes);
 
-                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
-
-                                       
+                                        // Demande à l'utilisateur de choisir un athlète parmi la liste
                                         do {
-                                                printf("\nEntrez l'epreuve dont vous souhaitez voir la progression (ex 100m / 400m / 5000m / marathon / relais): ");
+                                                printf("\nChoisissez un athlète parmi cette liste de %d athlètes pour suivre sa progression d'entraînement par épreuve : ", nbAthletes);
+                                                scanf("%d", &num_athlete);
+                                        } while(num_athlete < 0 || num_athlete > nbAthletes);
+
+
+                                        // Récupère le nom du fichier correspondant à l'athlète choisi
+                                        sprintf(filename, "data/%s.csv", tab_athletes[num_athlete - 1]->prenom_nom);
+
+
+                                        // Demande à l'utilisateur de choisir une épreuve pour suivre la progression
+                                        do {
+                                                printf("\nEntrez l'épreuve dont vous souhaitez voir la progression (ex: 100m / 400m / 5000m / marathon / relais): ");
                                                 scanf("%s", nom_epreuve);
                                                 printf("\n\n");
-                                        
                                         } while (strcmp(nom_epreuve, "100m") != 0 && strcmp(nom_epreuve, "400m") != 0 && strcmp(nom_epreuve, "5000m") != 0 && strcmp(nom_epreuve, "marathon") != 0 && strcmp(nom_epreuve, "relais") != 0);
 
-                                        entrainement** tab_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement );
 
-                                        //trie_perf(tab_entrainement, nbEntrainement, nom_epreuve);
+
+                                        // Lit les entraînements du fichier correspondant à l'athlète et à l'épreuve choisie
+                                        entrainement** tab_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement);
+
+
+                                        // Trie les entraînements par performance
                                         trie_entrainement_par_perf(tab_entrainement, nbEntrainement);
 
-                                        entrainement** tab_epreuve= print_entrainements_trier(tab_entrainement, nbEntrainement, nom_epreuve,&j);
+
+                                        // Affiche les entraînements triés par performance pour l'épreuve choisie
+                                        entrainement** tab_epreuve = print_entrainements_trier(tab_entrainement, nbEntrainement, nom_epreuve, &j);
                                         affiche_new_tab(tab_epreuve, nom_epreuve, &j);
 
-                                        printf("\n\n Veuillez saisir les 2 entrainements dont vous voulez constater la progression\n\n");
+
+                                        // Demande à l'utilisateur de saisir les deux entraînements pour comparer leur progression
+                                        printf("\n\n Veuillez saisir les deux entraînements dont vous souhaitez constater la progression\n\n");
+
                                         int entr1, entr2;
                                         double pro;
 
-                                        do
-                                        {
-                                                printf("Saisi le premier entrainement:");
-                                                scanf("%d",&entr1);
-                                        } while (entr1>j || entr1<1);
-
-                                        //for debug
-                                        //printf("\nj : %d\n\n",j);
+                                        // Demande le premier entraînement
+                                        do {
+                                                printf("Saisissez le premier entraînement : ");
+                                                scanf("%d", &entr1);
+                                        } while (entr1 > j || entr1 < 1);
 
 
-                                        do
-                                        {
-                                                printf("Saisi le deuxieme entrainement:");
-                                                scanf("%d",&entr2);
-                                        } while (entr2>j|| entr1<1);
-                                        
-                                        pro=(tab_epreuve[entr1-1]->laperf.perf)-(tab_epreuve[entr2-1]->laperf.perf);
-                                        //pro=(tab_epreuve[entr1]->laperf.perf)-(tab_epreuve[entr2]->laperf.perf);
+                                        // Demande le deuxième entraînement
+                                        do {
+                                                printf("Saisissez le deuxième entraînement : ");
+                                                scanf("%d", &entr2);
+                                        } while (entr2 > j || entr2 < 1);
 
-                                        diff=nombre_jours(tab_epreuve[entr1-1]->ladate,tab_epreuve[entr2-1]->ladate);
 
-                                        if (diff<0)
-                                        {
-                                                diff=diff*(-1);
-                                        }
-                                        
-                                        
+                                        // Calcule la différence de performance entre les deux entraînements
+                                        pro = (tab_epreuve[entr1 - 1]->laperf.perf) - (tab_epreuve[entr2 - 1]->laperf.perf);
+                                        diff = nombre_jours(tab_epreuve[entr1 - 1]->ladate, tab_epreuve[entr2 - 1]->ladate);
 
-                                        if (pro<0)
-                                        {
-                                                pro=pro*(-1);
+                                        // Assure que la différence de jours est positive
+                                        if (diff < 0) {
+                                                diff = diff * (-1);
                                         }
 
-                                        printf("%.2f",pro);
+                                        // Assure que la différence de performance est positive
+                                        if (pro < 0) {
+                                                pro = pro * (-1);
+                                        }
 
-                                        if (entr1>entr2)
-                                        {
-                                                printf("\nl'athlete a gagne %.2f secondes en performance avec %d jours d'intervalle",pro,diff);
+
+                                        // Affiche la différence de performance et la différence de jours entre les deux entraînements
+                                        printf("%.2f", pro);
+
+
+                                        // Affiche si l'athlète a gagné ou perdu en performance et la différence de jours
+                                        if (entr1 > entr2) {
+                                                printf("\nL'athlète a gagné %.2f secondes en performance avec %d jours d'intervalle.", pro, diff);
+                                        } 
+                                        else {
+                                                printf("\nL'athlète a perdu %.2f secondes en performance avec %d jours d'intervalle.", pro, diff);
                                         }
                                         
-                                        else{
-                                                printf("\nl'athlete a perdu %.2f secondes en performance avec %d jours d'intervalle",pro,diff);
-                                        }
-                                        
-
-                                
-                                        
-
-                                        break;
-
                                 // retour
                                 case 6:
                                         printf("\nretour");
@@ -481,8 +481,9 @@ int main() {
                         break;
                         
                 case 3 :
-                        // print all athletes
                         printf("\n");
+
+                        //affiche le tableau d'un athlete
                         printArrayOfAthlete(tab_athletes, nbAthletes);  
                         break;
 
@@ -492,28 +493,24 @@ int main() {
                         // rewrite all athletes from array to file
                         int ok = addNewAthlete(tab_athletes, &nbAthletes);
                         if (ok == 1) {
-                                //for debug
-                                //printf("\n\nnbAthletes :%d\n",nbAthletes);
-                                
-                                //for debug
-                                //printf("\n\n\ntab_athletes[nbAthletes]->prenom_nom : %s\n\n",tab_athletes[nbAthletes]->prenom_nom);
-                                // recupere le nouvel athete
 
-
+                                // retrouve et stock le nom du fichier 
                                 sprintf(filename, "data/%s.csv",tab_athletes[nbAthletes-1]->prenom_nom);
 
                                 
                         
                                 printf("\n");
+
                                 //regarde si il existe deja pas;
                                 fichier_existe(filename);
 
                                 //puis le créé
-                                //printf("\n\n\n\n\nfilename : %s\n\n\n\n\n",filename);
                                 creer_fichier_si_non_existant(filename);
 
                         
                                 printf("\nVoici la nouvelle liste d'athletes : \n");
+
+                                // reecrit tous les athletes du tableau du fichier
                                 writeArrayOfAthleteTOfile(FILE_ATHLETES, tab_athletes, nbAthletes);
                         }        
                         

@@ -12,10 +12,10 @@
 
 
 
-// return an array of athletes from file
+// renvoi un tableau d'athlete
 athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes) {
     
-    // create TAB_DATA of athlete
+    // creer TAB_DATA d'athlete
     athlete** TAB_DATA = (athlete**) malloc(NB_MAX_ATHLETES * sizeof(athlete*));
 
     if (TAB_DATA == NULL) {
@@ -27,8 +27,6 @@ athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes) {
     int nbLines = 0;
     char*** tab_lines = readDataFile(nomFichier, ";", &nbLines);
 
-    // for debug
-    //printDataLines(tab_lines, nbLines);
 
     // init nbAthletes
     *nbAthletes = nbLines;
@@ -53,7 +51,7 @@ athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes) {
 
 
 
-// print an array of Athlete
+// affiche un tableau d'athlete
 void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes)
 {
     //printf("Nombre d'athletes : %d\n\n", nbAthletes);
@@ -65,7 +63,7 @@ void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes)
 
 
 
-// rewrite all athletes from array to file
+// reecrit tous les athletes du tableau du fichier
 void writeArrayOfAthleteTOfile(const char* nomFichier, athlete** tab_athletes, int  nbAthletes) {
 
 
@@ -83,40 +81,41 @@ void writeArrayOfAthleteTOfile(const char* nomFichier, athlete** tab_athletes, i
     
 
     for (int i = 0; i < nbAthletes; i++) {
-        //printf("%s\n", tab_athletes[i]->prenom_nom);  // Écrire le nom dans le fichier avec un saut de ligne
         fprintf(fichier, "%s\n", tab_athletes[i]->prenom_nom);  // Écrire le nom dans le fichier avec un saut de ligne
     }
 
-
-    
     fclose(fichier);  // Fermer le fichier
 }
 
 
 
-// add new athlete to array
+// ajoute nouveau athlete au tableau
 // return 1 if OK else 0
-int addNewAthlete(athlete** tab_athletes, int* nbAthletes){
-
-    // alloc new athlete
+int addNewAthlete(athlete** tab_athletes, int* nbAthletes) {
+    
+    // Alloue de la mémoire pour le nouvel athlète
     athlete* p_new_athlete = (athlete*) malloc(sizeof(athlete));
     
+    // Demande à l'utilisateur le nom de l'athlète
     char nv_athlete[100];
-    demande_a_l_utilisateur_une_chaine_de_caractere_fgets("Entrez le nom de l'athlète (min 3 caractères): ", nv_athlete, 100-1);
+    demande_a_l_utilisateur_une_chaine_de_caractere_fgets("Entrez le nom de l'athlète (minimum 3 caractères): ", nv_athlete, 100-1);
 
+    // Vérifie la longueur du nom de l'athlète
     if (strlen(nv_athlete) < 3) {
-        printf("le nom de l'athlete est trop petit !!\n");
-        return 0;
+        printf("Le nom de l'athlète est trop court !\n");
+        return 0; // Retourne 0 pour indiquer une erreur
     } 
-    else 
-    {
+    
+    else {
+        
+        // Copie le nom de l'athlète dans la structure de l'athlète nouvellement créé
         strcpy(p_new_athlete->prenom_nom, nv_athlete);
 
-        // add new athlete to tab
+        // Ajoute le nouvel athlète au tableau
         tab_athletes[*nbAthletes] = p_new_athlete;
 
-        (*nbAthletes)++;
-        return 1;
+        (*nbAthletes)++; // Incrémente le nombre total d'athlètes
+        return 1; // Retourne 1 pour indiquer le succès
     }
 }
 
@@ -124,28 +123,42 @@ int addNewAthlete(athlete** tab_athletes, int* nbAthletes){
 
 // Fonction pour tester l'existence du fichier
 int fichier_existe(const char *nom_fichier) {
+    
+    // Tente d'ouvrir le fichier en mode lecture
     FILE *fichier = fopen(nom_fichier, "r");
+    
     if (fichier) {
-        fclose(fichier);
+        fclose(fichier); // Ferme le fichier
         return 1; // Le fichier existe
-    } else {
+    } 
+
+    else {
         return 0; // Le fichier n'existe pas
     }
 }
 
 
+
 // Fonction pour créer le fichier s'il n'existe pas
-void creer_fichier_si_non_existant(const char *nom_fichier){
+void creer_fichier_si_non_existant(const char *nom_fichier) {
+    
+    // Vérifie si le fichier existe déjà
     if (!fichier_existe(nom_fichier)) {
+        
+        // Si le fichier n'existe pas, ouvre-le en mode écriture
         FILE *fichier = fopen(nom_fichier, "w");
         if (fichier) {
-            //printf("Le fichier '%s' a été créé.\n", nom_fichier);
-            fclose(fichier);
+           
+            // Le fichier a été ouvert avec succès, donc il est créé
+            fclose(fichier); // Ferme le fichier
         } else {
+            
+            // Affiche un message d'erreur si le fichier n'a pas pu être créé
             printf("Erreur lors de la création du fichier '%s'.\n", nom_fichier);
         }
     } else {
+        
+        // Affiche un message indiquant que le fichier existe déjà
         printf("Le fichier '%s' existe déjà.\n", nom_fichier);
     }
 }
-

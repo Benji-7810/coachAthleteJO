@@ -48,6 +48,7 @@ typedef struct{
 
 
 
+// StatistiquesAthlete
 typedef struct {
     char nom[100];        // Nom de l'athlète
     double meilleur_temps; // Meilleur temps réalisé
