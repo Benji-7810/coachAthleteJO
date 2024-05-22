@@ -5,11 +5,12 @@
 
 
 
-// read all athletes from file to array
+// renvoi un tableau d'athlete
 athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes);
 
 
-// print all athlestes from array
+
+// affiche un tableau d'athlete
 void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes);
 
 

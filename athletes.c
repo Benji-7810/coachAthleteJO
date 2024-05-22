@@ -63,7 +63,7 @@ void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes)
 
 
 
-// reecrit tous les athletes du tableau du fichier
+// rewrite all athletes from array to file
 void writeArrayOfAthleteTOfile(const char* nomFichier, athlete** tab_athletes, int  nbAthletes) {
 
 
