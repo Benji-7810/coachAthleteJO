@@ -168,8 +168,7 @@ void afficherEntrainementsTries(entrainement **tabEntrainements, int nbTotalEntr
 
 
 
-
-StatistiquesAthlete* calculerStatistiques(entrainement **tabEntrainements, int nbTotalEntrainements, int* nbAthletes) {
+StatistiquesAthlete* calculerStatistiques(entrainement** tabEntrainements, int nbTotalEntrainements, int* nbAthletes) {
     StatistiquesAthlete *stats = malloc(nbTotalEntrainements * sizeof(StatistiquesAthlete));
     if (!stats) {
         printf("Erreur d'allocation mémoire.\n");
@@ -183,7 +182,7 @@ StatistiquesAthlete* calculerStatistiques(entrainement **tabEntrainements, int n
         
         bool found = false;
         for (int j = 0; j < nbAthletesFound; j++) {
-            if (strcmp(stats[j].nom, tabEntrainements[i]->lepreuve.nom) == 0) {
+            if (strcmp(stats[j].nom, tabEntrainements[i]->nom) == 0) { // Utilisation du nom de l'athlète
                 found = true;
                 stats[j].somme_temps += tabEntrainements[i]->laperf.perf;
                 stats[j].compteur++;
@@ -195,7 +194,7 @@ StatistiquesAthlete* calculerStatistiques(entrainement **tabEntrainements, int n
         }
 
         if (!found) {
-            strcpy(stats[nbAthletesFound].nom, tabEntrainements[i]->lepreuve.nom);
+            strcpy(stats[nbAthletesFound].nom, tabEntrainements[i]->nom); // Utilisation du nom de l'athlète
             stats[nbAthletesFound].meilleur_temps = tabEntrainements[i]->laperf.perf;
             stats[nbAthletesFound].somme_temps = tabEntrainements[i]->laperf.perf;
             stats[nbAthletesFound].compteur = 1;
@@ -260,23 +259,19 @@ void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes) {
   
         int nbr = demande_a_l_utilisateur_un_entier_sans_affichage("Vous voulez afficher les 3 meilleurs athletes par quel moyens \n1- Meilleur temps\n2- Moyenne des temps",1,2);
         if(nbr==1){
-        trierParMeilleurTemps(stats,nbAthletes);
-        printf("        Le meilleur athlète: %s avec pour meilleur temps : %.2f secondes\n", stats[0].nom, stats[0].meilleur_temps);
-        printf("        Le deuxieme athlète: %s avec pour meilleur temps : %.2f secondes\n", stats[1].nom, stats[1].meilleur_temps);
-        printf("        Le troisieme athlète: %s avec pour meilleur temps : %.2f secondes\n", stats[2].nom, stats[2].meilleur_temps);
+        trierParMeilleurTemps(stats,nbAthletes);    
+        printf("        Le meilleur athlète  : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[0].nom, stats[0].meilleur_temps);
+        printf("        Le deuxieme athlète  : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[1].nom, stats[1].meilleur_temps);
+        printf("        Le troisieme athlète : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[2].nom, stats[2].meilleur_temps);
     }
     else{
         trierParMoyenne(stats,nbAthletes);
-        printf("        Le meilleur athlète: %s avec pour meilleur temps : %.2f secondes\n", stats[0].nom, stats[0].moyenne_temps);
-        printf("        Le deuxieme athlète: %s avec pour meilleur temps : %.2f secondes\n", stats[1].nom, stats[1].moyenne_temps);
-        printf("        Le troisieme athlète: %s avec pour moyenne : %.2f secondes\n", stats[2].nom, stats[2].moyenne_temps);
+        printf("        Le meilleur athlète  : %20s     avec pour meilleur temps : %5.2f secondes\n", stats[0].nom, stats[0].moyenne_temps);
+        printf("        Le deuxieme athlète  : %20s     avec pour meilleur temps : %5.2f secondes\n", stats[1].nom, stats[1].moyenne_temps);
+        printf("        Le troisieme athlète : %20s     avec pour moyenne  temps : %5.2f secondes\n", stats[2].nom, stats[2].moyenne_temps);
 
     }
     
     
 }
 
-
-void si_relais(entrainement **tabEntrainements, int nbTotalEntrainements, int* nbAthletes){
-    
-}
