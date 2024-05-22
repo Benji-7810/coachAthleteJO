@@ -251,16 +251,16 @@ void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes) {
         
         // Affiche les 3 meilleurs athlètes par meilleur temps
         printf("        Le meilleur athlète  : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[0].nom, stats[0].meilleur_temps);
-        printf("        Le deuxième athlète : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[1].nom, stats[1].meilleur_temps);
-        printf("        Le troisième athlète: %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[2].nom, stats[2].meilleur_temps);
+        printf("        Le deuxième athlète  : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[1].nom, stats[1].meilleur_temps);
+        printf("        Le troisième athlète : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[2].nom, stats[2].meilleur_temps);
     } else {
         
         trierParMoyenne(stats, nbAthletes);
         
         // Affiche les 3 meilleurs athlètes par moyenne des temps
         printf("        Le meilleur athlète  : %20s     avec pour moyenne temps  : %5.2f secondes\n", stats[0].nom, stats[0].moyenne_temps);
-        printf("        Le deuxième athlète : %20s     avec pour moyenne temps  : %5.2f secondes\n", stats[1].nom, stats[1].moyenne_temps);
-        printf("        Le troisième athlète: %20s     avec pour moyenne temps  : %5.2f secondes\n", stats[2].nom, stats[2].moyenne_temps);
+        printf("        Le deuxième athlète  : %20s     avec pour moyenne temps  : %5.2f secondes\n", stats[1].nom, stats[1].moyenne_temps);
+        printf("        Le troisième athlète : %20s     avec pour moyenne temps  : %5.2f secondes\n", stats[2].nom, stats[2].moyenne_temps);
     }
 }
 
