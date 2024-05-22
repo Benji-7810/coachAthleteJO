@@ -12,33 +12,72 @@
 
 // Initiation des fonctions nécessaires à la construction du programme.
 
+// int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
+//     int nombre;
+//     // Boucle do-while pour s'assurer que la saisie est entre min et max
+//     do{
+//         // Affiche seulement la question
+//         printf("%s  (entre %d et %d) : ", question, min ,max);
+//         // Lit l'entier saisi par l'utilisateur
+//         scanf("%d", &nombre);
+//     }while(nombre<min || max<nombre); // Répète si le nombre est en dehors des limites
+
+
+
+//     return nombre;  // Retourne le nombre valide saisi par l'utilisateur
+// }
+
 int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
     int nombre;
+
+    char buffer[100];
     // Boucle do-while pour s'assurer que la saisie est entre min et max
-    do{
-        // Affiche seulement la question
-        printf("%s  (entre %d et %d) : ", question, min ,max);
-        // Lit l'entier saisi par l'utilisateur
-        scanf("%d", &nombre);
-    }while(nombre<min || max<nombre); // Répète si le nombre est en dehors des limites
-
-
+    do {
+        printf("%s\n", question);
+        if (scanf("%d", &nombre) != 1) {
+            
+            // Si la saisie n'est pas un entier, vider le tampon d'entrée
+            scanf("%s", buffer); // Lire et vider le reste de la saisie
+            printf("\nVeuillez saisir un nombre entier.\n");
+            continue;
+        }
+        if (nombre < min || nombre > max) {
+            
+            printf("\nVeuillez saisir une valeur entre %d et %d inclus.\n", min, max);
+        }
+    } while (nombre < min || nombre > max);
 
     return nombre;  // Retourne le nombre valide saisi par l'utilisateur
 }
 
 // Même fonction précédente, or elle est appelée sans attendre d'affichage.
 
+
+
 int demande_a_l_utilisateur_un_entier_sans_affichage(char* question, int min, int max) {
     int nombre;
-    do{
-        printf("%s\n ", question);
-        scanf("%d", &nombre);
-    }while(nombre<min || max<nombre);
 
+    char buffer[100];
+    // Boucle do-while pour s'assurer que la saisie est entre min et max
+    do {
+        printf("%s\n", question);
+        if (scanf("%d", &nombre) != 1) {
+           
+            // Si la saisie n'est pas un entier, vider le tampon d'entrée
+            scanf("%s", buffer); // Lire et vider le reste de la saisie
+            printf("\nVeuillez saisir un nombre entier.\n");
+            continue;
+        }
 
-    return nombre;
+        if (nombre < min || nombre > max) {
+            printf("\nVeuillez saisir une valeur.\n");
+        }
+    } while (nombre < min || nombre > max);
+
+    return nombre;  // Retourne le nombre valide saisi par l'utilisateur
 }
+
+
 
 // ne pas utiliser : bug si un espace est saisi
 void demande_a_l_utilisateur_une_chaine_de_caractere_ne_pas_utiliser(char* question, char* p_txt, int longueur_min, int longueur_max) {

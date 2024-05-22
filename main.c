@@ -18,7 +18,7 @@
 int main() {
 
 
-        // initialisation des variables nécessaire
+// initialisation des variables nécessaire
     int nbTotalEntrainements = 0;
 
     int nbAthletes = 0;
@@ -29,6 +29,7 @@ int main() {
 
     char nom_epreuve[100];        
     
+
     // load athletes from file
     athlete** tab_athletes = readAthletesFromFile(FILE_ATHLETES, &nbAthletes);
 
@@ -75,7 +76,7 @@ int main() {
                         
 
                                 // Affichage du nom de l'athlète choisi
-                                printf("\nnom de l'athlete choisi : '%s'\n\n", tab_athletes[num_athlete-1]->prenom_nom);
+                                printf("\n\nnom de l'athlete choisi : '%s'\n\n", tab_athletes[num_athlete-1]->prenom_nom);
 
 
                                 // Génération du nom de fichier pour l'athlète choisi
@@ -286,7 +287,7 @@ int main() {
 
                                         // Choix de l'athlète parmi la liste
                                         do {
-                                                printf("\nChoisis un athlète parmi cette liste de %d athlètes pour ajouter l'avancement de son entraînement par épreuve\n", nbAthletes);
+                                                printf("\nChoisis un athlète parmi cette liste \n");
                                                 scanf("%d", &num_athlete);
                                         } while (num_athlete < 0 || num_athlete > nbAthletes);
 
@@ -318,7 +319,7 @@ int main() {
 
                                         // Choix de l'athlète parmi la liste
                                         do {
-                                                printf("\nChoisis un athlète parmi cette liste de %d athlètes pour ajouter l'avancement de son entraînement par épreuve\n", nbAthletes);
+                                                printf("\nChoisis un athlète parmi cette liste \n");
                                                 scanf("%d", &num_athlete);
                                         } while (num_athlete < 0 || num_athlete > nbAthletes);
 
@@ -404,7 +405,7 @@ int main() {
 
                                         // Demande à l'utilisateur de choisir un athlète parmi la liste
                                         do {
-                                                printf("\nChoisissez un athlète parmi cette liste de %d athlètes pour suivre sa progression d'entraînement par épreuve : ", nbAthletes);
+                                                printf("\nChoisissez un athlète parmi cette liste \n");
                                                 scanf("%d", &num_athlete);
                                         } while(num_athlete < 0 || num_athlete > nbAthletes);
 
@@ -424,7 +425,10 @@ int main() {
 
                                         // Lit les entraînements du fichier correspondant à l'athlète et à l'épreuve choisie
                                         entrainement** tab_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement);
-
+                                        if(nbEntrainement<2){
+                                                printf("\n       Pas assez d'entrainement enregistré il en faut minumum 2");
+                                                break;
+                                        }
 
                                         // Trie les entraînements par performance
                                         trie_entrainement_par_perf(tab_entrainement, nbEntrainement);
