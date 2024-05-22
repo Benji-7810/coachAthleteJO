@@ -18,7 +18,7 @@
 int main() {
 
 
-
+        // initialisation des variables nécessaire
     int nbTotalEntrainements = 0;
 
     int nbAthletes = 0;
@@ -53,152 +53,163 @@ int main() {
                 
                 // ajouter un entrainement : 
                 case 1 :
-                        // choix epreuve
+                        // Affichage du menu pour choisir une épreuve à saisir
                         displayMenuChoixUneEpreuveATaper(nom_epreuve);
 
+                        
+                        // Vérification si l'utilisateur souhaite revenir en arrière
                         if (strcmp(nom_epreuve, "retour") == 0) {
                                 break;
                         }
 
-
-                        // si different de "relais" => 1 seul athlete
-                        if (strcmp(nom_epreuve, "relais") != 0)
-                        {
+                        // Si l'épreuve n'est pas un relais, alors un seul athlète est impliqué
+                        if (strcmp(nom_epreuve, "relais") != 0) {
                                 
+                                // Affichage de la liste des athlètes disponibles
                                 printArrayOfAthlete(tab_athletes, nbAthletes);
-                        
-                                // choix de l'athlete
+                                
+
+                                // Choix de l'athlète
                                 num_athlete = demande_a_l_utilisateur_un_entier_sans_affichage
                                 ("\nChoisis un athlete parmis cette liste d'athletes pour ajouter l'entrainement\n", 1, nbAthletes);
-                                
+                        
 
+                                // Affichage du nom de l'athlète choisi
                                 printf("\nnom de l'athlete choisi : '%s'\n\n", tab_athletes[num_athlete-1]->prenom_nom);
 
 
-                                // generation du nom de fichier
+                                // Génération du nom de fichier pour l'athlète choisi
                                 sprintf(filename, "data/%s.csv", tab_athletes[num_athlete-1]->prenom_nom);
 
-                                if ( !fichier_existe(filename) ) {
+
+                                // Vérification de l'existence du fichier, le crée s'il n'existe pas
+                                if (!fichier_existe(filename)) {
                                         printf("\nfichier introuvable: '%s'", filename);
                                         creer_fichier_si_non_existant(filename);
                                 }
-                                
 
+
+                                // Lecture des entraînements existants de l'athlète depuis le fichier
                                 entrainement** tab_d_un_entrainement = lis_un_fichier_d_entrainement(filename, &nbEntrainement);
+
+
+                                // Ajout d'un nouvel entraînement saisi par l'utilisateur
+                                addNewEntrainementSaisiUser(tab_d_un_entrainement, &nbEntrainement, nom_epreuve);
+
+
+                                // Écriture des entraînements mis à jour dans le fichier
+                                writeArrayOftrainingTOfile(filename, tab_d_un_entrainement, nbEntrainement);
+
+
+                                // Affichage du nom de l'athlète
+                                printf("%s \n\n", tab_athletes[num_athlete-1]->prenom_nom);
+
                                 
-
-                                addNewEntrainementSaisiUser(tab_d_un_entrainement, &nbEntrainement,nom_epreuve);
-
-                
-                                writeArrayOftrainingTOfile(filename,tab_d_un_entrainement, nbEntrainement);
-
-
-                                //affiche le nom de l'athlete
-                                printf("%s \n\n",tab_athletes[num_athlete-1]->prenom_nom);
-
-
+                                // Affichage de la liste des entraînements mis à jour de l'athlète
                                 printArrayOfentrainement(tab_d_un_entrainement, nbEntrainement);
-                                
                         }
+                                
+                        
                         else { 
                                 //////////////////////
                                 // RELAIS !!!
                                 //////////////////////
                                 
+                              // Déclaration des variables nécessaires pour la gestion du relais
                                 int tab_athlete_relais[4];
                                 date date_relais;
                                 int position_relais = 0;
                                 performance laperf;
                                 entrainement* p_new_entrainement;
 
+
                                 // Affichage de la liste des athlètes disponibles
                                 printArrayOfAthlete(tab_athletes, nbAthletes);
 
+
+                                // Allocation dynamique d'un tableau de pointeurs vers des tableaux d'entraînements pour le relais
                                 entrainement*** tab_d_entrainements_relais = malloc(sizeof(entrainement**) * 4);
-                                
-                        
-                                //athlete 1
-                                tab_athlete_relais[0] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°1: ", 1, nbAthletes)-1;
-                                
-                                //athlete 2
-                                int i=0;
+
+
+                                // Sélection des athlètes pour le relais
+                                // Athlète 1
+                                tab_athlete_relais[0] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°1: ", 1, nbAthletes) - 1;
+
+
+                                // Athlète 2
+                                int i = 0;
                                 do {    
-                                        // si l'athlete déja pris 
+                                        // Si l'athlète a déjà été choisi
                                         if (i > 0) { 
-                                                printf("\nDeja choisi !! un autre stp"); 
+                                                printf("\nDéjà choisi !! Choisissez un autre athlète s'il vous plaît."); 
                                         }
-                                        tab_athlete_relais[1] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°2: ", 1, nbAthletes)-1;
+
+                                        tab_athlete_relais[1] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°2: ", 1, nbAthletes) - 1;
+                                        
                                         i++;
-                                } while (tab_athlete_relais[1]==tab_athlete_relais[0]);
+
+                                } while (tab_athlete_relais[1] == tab_athlete_relais[0]);
+
+
+                                // Athlète 3
+                                i = 0;
                                 
-                                
-                                //athlete 3
-                                i=0;
                                 do {
+                                        // Si l'athlète a déjà été choisi
                                         if (i > 0) { 
-                                        printf("\nDeja choisi !! un autre stp"); 
+                                                printf("\nDéjà choisi !! Choisissez un autre athlète s'il vous plaît."); 
                                         }
                                         
-                                        tab_athlete_relais[2] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°3: ", 1, nbAthletes)-1;
-                                        i++;
-
-                                } while (tab_athlete_relais[2]==tab_athlete_relais[0] 
-                                        || tab_athlete_relais[2]==tab_athlete_relais[1]);
-
-                                
-                                //athlete 4
-                                i=0;
-                                do {
-                                        if (i > 0) { 
-                                        printf("\nDeja choisi !! un autre stp"); 
-                                        }
+                                        tab_athlete_relais[2] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°3: ", 1, nbAthletes) - 1;
                                         
-                                        tab_athlete_relais[3] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°4: ", 1, nbAthletes)-1;
                                         i++;
+                                } while (tab_athlete_relais[2] == tab_athlete_relais[0] || tab_athlete_relais[2] == tab_athlete_relais[1]);
+                                                                
+                                // Athlète 4
+                                i = 0;
+                                do {
+                                        // Si l'athlète a déjà été choisi
+                                        if (i > 0) {
 
-                                } while (tab_athlete_relais[3]==tab_athlete_relais[0]
-                                        || tab_athlete_relais[3]==tab_athlete_relais[1]
-                                        || tab_athlete_relais[3]==tab_athlete_relais[2]);
+                                                printf("\nDéjà choisi !! Choisissez un autre athlète s'il vous plaît."); 
+                                        }
 
-                                
-                                // choix date
+                                        tab_athlete_relais[3] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°4: ", 1, nbAthletes) - 1;
+                                        
+                                        i++;
+                                } while (tab_athlete_relais[3] == tab_athlete_relais[0] || tab_athlete_relais[3] == tab_athlete_relais[1] || tab_athlete_relais[3] == tab_athlete_relais[2]);
+
+
+                                // Choix de la date du relais
                                 demande_a_l_utilisateur_une_date(&date_relais);
 
-                                // perf globale
-                                printf("Quel a été le chrono du relais ? ");
                                
+                                // Demande de la performance globale du relais
+                                printf("Quel a été le chrono du relais ? ");
                                 demande_a_l_utilisateur_une_perf(&laperf);
 
-
-                                // ajout de la perf pour chaque athlete
+                               
+                                // Ajout de la performance pour chaque athlète
                                 for (int i = 0; i < 4; i++) {
-
                                         int indice_athlete = tab_athlete_relais[i];
-
-                                        // for debug
-                                        printf("\najout de la perf pour chaque athlete : %d : '%s'\n", i+1, tab_athletes[indice_athlete]->prenom_nom);
-
+                                        printf("\nAjout de la performance pour l'athlète %d : '%s'\n", i + 1, tab_athletes[indice_athlete]->prenom_nom);
                                         
                                         position_relais = i + 1;
-                                        p_new_entrainement = getNewEntrainement(date_relais, nom_epreuve, laperf, position_relais);
-
-
-                                        addNewEntrainementDansFichier(tab_athletes[indice_athlete]->prenom_nom, p_new_entrainement);
-
-
-
-
-
                                         
+                                        p_new_entrainement = getNewEntrainement(date_relais, nom_epreuve, laperf, position_relais);
+                                        
+                                        addNewEntrainementDansFichier(tab_athletes[indice_athlete]->prenom_nom, p_new_entrainement);
                                 }
 
-                                
+
+                                // Libération de la mémoire allouée pour le tableau d'entraînements relais
                                 for (int i = 0; i < 4; i++) {
                                         free(tab_d_entrainements_relais[i]);
                                 }
-                                free(tab_d_entrainements_relais);
-                                
 
+                                free(tab_d_entrainements_relais);
+
+                                
                         }
                 break;
       
@@ -480,6 +491,9 @@ int main() {
                         } // fin switch statistiques des athletes
                         break;
                         
+                
+                
+                
                 case 3 :
                         printf("\n");
 
@@ -487,6 +501,9 @@ int main() {
                         printArrayOfAthlete(tab_athletes, nbAthletes);  
                         break;
 
+                
+                
+                
                 case 4 :
                         
                         printf("\n");

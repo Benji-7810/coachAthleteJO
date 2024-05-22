@@ -126,10 +126,10 @@ void affiche_pire_meilleur_temps(entrainement** tab_entrainement_epreuve, int nb
     }
 
     // Afficher le meilleur temps (supposé être le premier après tri)
-    printf("Meilleur temps : %.2f sec\n", tab_entrainement_epreuve[0]->laperf.perf);
+    printf("Meilleur temps    : %.2f sec\n", tab_entrainement_epreuve[0]->laperf.perf);
 
     // Afficher le pire temps (supposé être le dernier après tri)
-    printf("Pire temps : %.2f sec\n", tab_entrainement_epreuve[nb_filtre - 1]->laperf.perf);
+    printf("Pire temps        : %.2f sec\n", tab_entrainement_epreuve[nb_filtre - 1]->laperf.perf);
 
     // Initialiser une variable pour la somme des performances
     double somme_perf = 0;
@@ -143,7 +143,7 @@ void affiche_pire_meilleur_temps(entrainement** tab_entrainement_epreuve, int nb
     double moyenne_perf = somme_perf / nb_filtre;
 
     // Afficher la moyenne des performances
-    printf("Moyenne des performances : %.2f sec\n", moyenne_perf);
+    printf("Moyenne des perfs : %.2f sec\n", moyenne_perf);
 }
    
 // }
