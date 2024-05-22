@@ -24,7 +24,7 @@ entrainement** print_entrainements_trier(entrainement** tab_entrainement, int nb
 
 void trie_entrainement_par_perf(entrainement** tab_entrainement, int nb_entrainement);
 
-void swap(entrainement** a, entrainement** b);
+//void swap(entrainement** a, entrainement** b);
 
 int compare_date1_date2(const date *date1, const date *date2);
 

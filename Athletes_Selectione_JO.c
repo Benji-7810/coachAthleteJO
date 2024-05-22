@@ -21,10 +21,10 @@
 
 
 // Fonction hypothétique pour lire les athlètes depuis un fichier
-athlete** readAthletesFromFile(const char* fichierAthletes, int* nbAthletes);
+//athlete** readAthletesFromFile(const char* fichierAthletes, int* nbAthletes);
 
 // Fonction hypothétique pour lire les entraînements d'un athlète depuis un fichier
-entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nbEntrainements);
+//entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nbEntrainements);
 
 entrainement** genererTableauEntrainements(const char* fichierAthletes, int* nbTotalEntrainements, const char* epreuve) {
     int nbAthletes;
@@ -126,46 +126,47 @@ void afficherEntrainements(entrainement** tabEntrainements, int nbTotalEntrainem
 
 
 
-
+//pas sur 
 // Fonction de comparaison pour les performances (ordre croissant)
-int comparePerformances(const void *a, const void *b) {
-    const entrainement *entra1 = *(const entrainement **)a;
-    const entrainement *entra2 = *(const entrainement **)b;
-    if (entra1->laperf.perf > entra2->laperf.perf) return 1;
-    if (entra1->laperf.perf < entra2->laperf.perf) return -1;
-    return 0;
-}
+// int comparePerformances(const void *a, const void *b) {
+//     const entrainement *entra1 = *(const entrainement **)a;
+//     const entrainement *entra2 = *(const entrainement **)b;
+//     if (entra1->laperf.perf > entra2->laperf.perf) return 1;
+//     if (entra1->laperf.perf < entra2->laperf.perf) return -1;
+//     return 0;
+// }
 
-void trierEntrainementsParPerformance(entrainement **tabEntrainements, int nbTotalEntrainements) {
-    qsort(tabEntrainements, nbTotalEntrainements, sizeof(entrainement *), comparePerformances);
-}
+// void trierEntrainementsParPerformance(entrainement **tabEntrainements, int nbTotalEntrainements) {
+//     qsort(tabEntrainements, nbTotalEntrainements, sizeof(entrainement *), comparePerformances);
+// }
 
 
-void afficherEntrainementsTries(entrainement **tabEntrainements, int nbTotalEntrainements) {
-    if (tabEntrainements == NULL || nbTotalEntrainements == 0) {
-        printf("Aucun entraînement à afficher.\n");
-        return;
-    }
+// void afficherEntrainementsTries(entrainement **tabEntrainements, int nbTotalEntrainements) {
+//     if (tabEntrainements == NULL || nbTotalEntrainements == 0) {
+//         printf("Aucun entraînement à afficher.\n");
+//         return;
+//     }
 
-    // Trier les entrainements par performance (temps le plus court en premier)
-    trierEntrainementsParPerformance(tabEntrainements, nbTotalEntrainements);
+//     // Trier les entrainements par performance (temps le plus court en premier)
+//     trierEntrainementsParPerformance(tabEntrainements, nbTotalEntrainements);
 
-    printf("Liste complète des entraînements filtrés, triés du plus performant au moins performant :\n\n");
-    for (int i = 0; i < nbTotalEntrainements; i++) {
-        if (tabEntrainements[i] == NULL) continue; // Ignore les pointeurs NULL
+//     printf("Liste complète des entraînements filtrés, triés du plus performant au moins performant :\n\n");
+//     for (int i = 0; i < nbTotalEntrainements; i++) {
+//         if (tabEntrainements[i] == NULL) continue; // Ignore les pointeurs NULL
 
-        // Affichage de l'entraînement
-        printf("Athlète: %s, Date: %s, Épreuve: %s, Performance: %s\n",
-               tabEntrainements[i]->lepreuve.nom,
-               get_date_printable(tabEntrainements[i]->ladate),
-               tabEntrainements[i]->lepreuve.nom,
-               get_perf_printable(tabEntrainements[i]->laperf));
+//         // Affichage de l'entraînement
+//         printf("Athlète: %s, Date: %s, Épreuve: %s, Performance: %s\n",
+//                tabEntrainements[i]->lepreuve.nom,
+//                get_date_printable(tabEntrainements[i]->ladate),
+//                tabEntrainements[i]->lepreuve.nom,
+//                get_perf_printable(tabEntrainements[i]->laperf));
 
      
-    }
+//     }
    
-}
+// }
 
+// pas sur
 
 
 StatistiquesAthlete* calculerStatistiques(entrainement** tabEntrainements, int nbTotalEntrainements, int* nbAthletes) {
@@ -236,28 +237,29 @@ void trierParMeilleurTemps(StatistiquesAthlete *stats, int nbAthletes) {
 }
 
 
-void affichetab(StatistiquesAthlete *stats, int nbAthletes) {
-    printf("Voici le tableau des statistiques des athlètes :\n");
-    printf("%-20s %-10s %-10s %-10s %-10s\n", "Nom", "Somme", "Compteur", "Meilleur", "Moyenne");
-    for (int i = 0; i < nbAthletes; i++) {
-        printf("%-20s %-10.2f %-10d %-10.2f %-10.2f\n", 
-               stats[i].nom, 
-               stats[i].somme_temps, 
-               stats[i].compteur, 
-               stats[i].meilleur_temps, 
-               stats[i].moyenne_temps);
-    }
-}
+
+// void affichetab(StatistiquesAthlete *stats, int nbAthletes) {
+//     //printf("Voici le tableau des statistiques des athlètes :\n");
+//     printf("%-20s %-10s %-10s %-10s %-10s\n", "Nom", "Somme", "Compteur", "Meilleur", "Moyenne");
+//     for (int i = 0; i < nbAthletes; i++) {
+//         printf("%-20s %-10.2f %-10d %-10.2f %-10.2f\n", 
+//                stats[i].nom, 
+//                stats[i].somme_temps, 
+//                stats[i].compteur, 
+//                stats[i].meilleur_temps, 
+//                stats[i].moyenne_temps);
+//     }
+// }
 
 void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes) {
     if (stats == NULL || nbAthletes == 0) {
         printf("Aucune statistique à afficher.\n");
         return;
     }
-    printf("Statistiques des athlètes :\n");
+    //printf("Statistiques des athlètes :\n");
     //int i =0;
   
-        int nbr = demande_a_l_utilisateur_un_entier_sans_affichage("Vous voulez afficher les 3 meilleurs athletes par quel moyens \n1- Meilleur temps\n2- Moyenne des temps",1,2);
+        int nbr = demande_a_l_utilisateur_un_entier_sans_affichage("Vous voulez afficher les 3 meilleurs athletes par quel moyens \n\n1- Meilleur temps\n2- Moyenne des temps",1,2);
         if(nbr==1){
         trierParMeilleurTemps(stats,nbAthletes);    
         printf("        Le meilleur athlète  : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[0].nom, stats[0].meilleur_temps);

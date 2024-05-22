@@ -138,22 +138,22 @@ void print1entrainement(entrainement* p_entrainement, int i)
 
 
 // ecris tous les entrainement d'un athlete dans son fichier
-void writeAllEntrainementTOfile(const char* nomAthlete, entrainement** tab_entrainement, int nbEntrainement) {
+// void writeAllEntrainementTOfile(const char* nomAthlete, entrainement** tab_entrainement, int nbEntrainement) {
 
-    char filename[500];
+//     char filename[500];
 
-    // generation du nom de fichier et du fichier si besoin
-    sprintf(filename, "data/%s.csv", nomAthlete);
+//     // generation du nom de fichier et du fichier si besoin
+//     sprintf(filename, "data/%s.csv", nomAthlete);
 
-    if ( !fichier_existe(filename) ) {
-            printf("\nfichier introuvable: '%s'", filename);
-            creer_fichier_si_non_existant(filename);
-    }
+//     if ( !fichier_existe(filename) ) {
+//             printf("\nfichier introuvable: '%s'", filename);
+//             creer_fichier_si_non_existant(filename);
+//     }
 
-    // ecris dans le fichier les entrainement
-    writeArrayOftrainingTOfile(filename, tab_entrainement, nbEntrainement);
+//     // ecris dans le fichier les entrainement
+//     writeArrayOftrainingTOfile(filename, tab_entrainement, nbEntrainement);
 
-}
+// }
 
 
 
@@ -253,7 +253,7 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
 
 
 
-// ajout du nouvel entrainement dans le tab de tous les entrainements
+//ajout du nouvel entrainement dans le tab de tous les entrainements
 void addNewEntrainementDansTab(entrainement** tab_entrainement, int* nbEntrainement, entrainement* p_new_entrainement) {
 
     // for debug

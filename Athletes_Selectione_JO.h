@@ -14,30 +14,32 @@
 
 
 
-void afficherEntrainements(entrainement** tabEntrainements, int nbTotalEntrainements);
 
 //entrainement** genererTableauEntrainements(const char* fichierAthletes, int* nbTotalEntrainements, const char* epreuve);
 
 entrainement** genererTableauEntrainements(const char* fichierAthletes, int* nbTotalEntrainements, const char* epreuve);
 
 
+void afficherEntrainements(entrainement** tabEntrainements, int nbTotalEntrainements);
+
+
 // Fonction hypothétique pour lire les athlètes depuis un fichier
-athlete** readAthletesFromFile(const char* fichierAthletes, int* nbAthletes);
+//athlete** readAthletesFromFile(const char* fichierAthletes, int* nbAthletes);
 
 // Fonction hypothétique pour lire les entraînements d'un athlète depuis un fichier
-entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nbEntrainements);
+//entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nbEntrainements);
 
-void trierEntrainementsParPerformance(entrainement **tabEntrainements, int nbTotalEntrainements);
+//void trierEntrainementsParPerformance(entrainement **tabEntrainements, int nbTotalEntrainements);
 
-int comparePerformances(const void *a, const void *b) ;
+//int comparePerformances(const void *a, const void *b) ;
 
-void afficherEntrainementsTries(entrainement **tabEntrainements, int nbTotalEntrainements);
+//void afficherEntrainementsTries(entrainement **tabEntrainements, int nbTotalEntrainements);
 
 void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes);
 
 StatistiquesAthlete* calculerStatistiques(entrainement **tabEntrainements, int nbTotalEntrainements, int* nbAthletes);
 
-void affichetab(StatistiquesAthlete *stats, int nbAthletes);
+//void affichetab(StatistiquesAthlete *stats, int nbAthletes);
 
 int comparerParMoyenne(const void *a, const void *b);
 

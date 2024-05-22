@@ -12,11 +12,11 @@
 
 
 
-void swap(entrainement** a, entrainement** b) {
-    entrainement* temp = *a;
-    *a = *b;
-    *b = temp;
-}
+// void swap(entrainement** a, entrainement** b) {
+//     entrainement* temp = *a;
+//     *a = *b;
+//     *b = temp;
+// }
 
 void trie_entrainement_par_perf(entrainement** tab_entrainement, int nb_entrainement) {
     

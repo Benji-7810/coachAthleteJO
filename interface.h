@@ -22,7 +22,7 @@ int displayMenuPrincipal();
 int displayMenuStatistiquesAthlete();
 
 // format: JJ/MM/AAAA HH:MM
-void print_date(date ladate);
+//void print_date(date ladate);
 
 // return format: JJ/MM/AAAA HH:MM
 char* get_date_printable(date ladate);
@@ -35,7 +35,7 @@ void demande_a_l_utilisateur_une_perf(performance* laperf);
 
 void demande_a_l_utilisateur_une_perf_marathon(performance* laperf);
 
-void transforme_en_perf(double perf, performance* laperf);
+//void transforme_en_perf(double perf, performance* laperf);
 
 char* get_perf_printable(performance laperf);
 

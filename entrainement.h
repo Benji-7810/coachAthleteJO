@@ -19,7 +19,7 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
 
 
 // ecris tous les entrainement d'un athlete dans son fichier
-void writeAllEntrainementTOfile(const char* nomAthlete, entrainement** tab_entrainement, int nbEntrainement);
+//void writeAllEntrainementTOfile(const char* nomAthlete, entrainement** tab_entrainement, int nbEntrainement);
 
 // creation nouvel entrainement
 // return pointeur dessus
