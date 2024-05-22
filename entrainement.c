@@ -19,7 +19,7 @@ entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nb_ent
         printf("\n %s: %d OK", __FILE__, __LINE__);
     }
 
-    // create TAB_DATA of athlete
+    // Création de TAB_DATA pour stocker les données d'entraînement
     entrainement** TAB_DATA = (entrainement**) malloc(NB_MAX_ENTRAINEMENT * sizeof(entrainement*));
 
     if (TAB_DATA == NULL) {
@@ -31,12 +31,12 @@ entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nb_ent
         printf("\n %s: %d OK", __FILE__, __LINE__);
     }
 
-     // read file => to "tab_lines"
+    // Lecture du fichier et stockage des lignes dans tab_lines
     int nbLines = 0;
     char*** tab_lines = readDataFile(nomFichier, ";", &nbLines);
 
     
-    // for debug
+    // Pour débogage
     if (PRINT_DEBUG) {
         printf("\n %s: %d OK", __FILE__, __LINE__);
         printDataLines(tab_lines, nbLines);
@@ -46,7 +46,7 @@ entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nb_ent
     (*nb_entrainement) = nbLines;
 
 
-    // fill TAB_DATA
+    // Remplissage de TAB_DATA
     int num_ligne_ok = 0;
     for (int i =0 ; i < nbLines ; i++) {
 
@@ -74,17 +74,16 @@ entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nb_ent
         }
         else
         {
-            // malloc athlete
+             // Allocation de mémoire pour un nouvel entraînement
 
+
+            // Copie des données de tab_lines vers TAB_DATA
             TAB_DATA[num_ligne_ok] = (entrainement*) malloc(sizeof(entrainement));
-            // Copier le nom d'entrainement dans le tableau final
             TAB_DATA[num_ligne_ok]->ladate.jour =                  atof(tab_lines[i][0]);
             TAB_DATA[num_ligne_ok]->ladate.mois =                  atof(tab_lines[i][1]);
             TAB_DATA[num_ligne_ok]->ladate.annee =                 atof(tab_lines[i][2]);
             TAB_DATA[num_ligne_ok]->ladate.heure =                 atof(tab_lines[i][3]);
             TAB_DATA[num_ligne_ok]->ladate.min =                   atof(tab_lines[i][4]);
-            // strcpy(TAB_DATA[i]->ladate.jour_mois_annee,  tab_lines[i][0]); 
-            // strcpy(TAB_DATA[i]->ladate.heure_min,       tab_lines[i][1]); 
             strcpy(TAB_DATA[num_ligne_ok]->lepreuve.nom,           tab_lines[i][5]); 
             TAB_DATA[num_ligne_ok]->laperf.perf =                  atof(tab_lines[i][6]);
             TAB_DATA[num_ligne_ok]->lepreuve.position_relais =     atof(tab_lines[i][7]);
@@ -102,10 +101,9 @@ entrainement** lis_un_fichier_d_entrainement(const char* nomFichier, int* nb_ent
 }
 
 
-// print an array of Athlete
+// Affichage du tableau d'athlete
 void printArrayOfentrainement(entrainement** TAB_DATA, int nbEntrainement)
 {
-    //printf("Nombre d'entrainenement : %d\n", nbEntrainement);
 
     for (int i = 0; i < nbEntrainement; i++) {
 
@@ -114,22 +112,29 @@ void printArrayOfentrainement(entrainement** TAB_DATA, int nbEntrainement)
     }
 }
 
-// print an array of Athlete
+// Affichage du tableau d'un athlete
 void print1entrainement(entrainement* p_entrainement, int i)
 {
-    char epreuve[20];
+    char epreuve[20]; // Variable pour stocker le nom de l'épreuve ou la version formatée pour les relais
 
-    // special "relais"
+
+     // Cas spécial pour les relais
     if (strcmp(p_entrainement->lepreuve.nom, "relais") == 0) {
+
+        // Formate le nom de l'épreuve pour inclure la position du relais
         sprintf(epreuve, "relais(%d)", p_entrainement->lepreuve.position_relais);
     } else {
+
+        // Copie le nom de l'épreuve dans la variable epreuve
         strcpy(epreuve, p_entrainement->lepreuve.nom);
     }
 
     printf("entrainement %2d -> date : %s, l'epreuve : %9s,  la perf : %s \n",
         i,
+        // Appelle get_date_printable pour obtenir la date formatée en chaîne de caractères
         get_date_printable(p_entrainement->ladate),
         epreuve,
+        // Appelle get_perf_printable pour obtenir la performance formatée en chaîne de caractères
         get_perf_printable(p_entrainement->laperf));
 
 }
@@ -137,23 +142,7 @@ void print1entrainement(entrainement* p_entrainement, int i)
 
 
 
-// ecris tous les entrainement d'un athlete dans son fichier
-// void writeAllEntrainementTOfile(const char* nomAthlete, entrainement** tab_entrainement, int nbEntrainement) {
 
-//     char filename[500];
-
-//     // generation du nom de fichier et du fichier si besoin
-//     sprintf(filename, "data/%s.csv", nomAthlete);
-
-//     if ( !fichier_existe(filename) ) {
-//             printf("\nfichier introuvable: '%s'", filename);
-//             creer_fichier_si_non_existant(filename);
-//     }
-
-//     // ecris dans le fichier les entrainement
-//     writeArrayOftrainingTOfile(filename, tab_entrainement, nbEntrainement);
-
-// }
 
 
 
@@ -168,8 +157,10 @@ void writeArrayOftrainingTOfile(const char* nomFichier, entrainement** tab_entra
         perror("Erreur lors de l'ouverture du fichier");
         return;
     }
-    
+
+    // Parcourt chaque entraînement dans le tableau
     for (int i = 0; i < nbEntrainement; i++) {
+        // Écrit les détails de l'entraînement dans le fichier
         fprintf(fichier, "%d;%d;%d;%d;%d;%s;%.2lf;%d\n", 
         tab_entrainement[i]->ladate.jour,
         tab_entrainement[i]->ladate.mois,  
@@ -193,9 +184,7 @@ void writeArrayOftrainingTOfile(const char* nomFichier, entrainement** tab_entra
 
 void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrainement, char*epeuve){
 
-    //*tab_entrainement = realloc(*tab_entrainement, ((*nbEntrainement)+1) * sizeof(entrainement*));
-
-    // alloc new athlete
+    // Alloue de la mémoire pour un nouvel entraînement
     entrainement* p_new_entrainement = (entrainement*) malloc(sizeof(entrainement));
     
     int jour;
@@ -203,14 +192,14 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
     int annee;
     int heure;
     int min;
-    //char epeuve[100];
+    
+
     performance laperf;
     int position_relais;
-    //int check;
     date ladate;
-    //double perf;
+    
 
-
+    // Demande à l'utilisateur de saisir la date de l'entraînement
     printf("\nDate de l'entrainement ?\n");
     jour  = demande_a_l_utilisateur_un_entier("jour",1,31);
     mois  = demande_a_l_utilisateur_un_entier("mois",1,12);
@@ -218,13 +207,14 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
     heure = demande_a_l_utilisateur_un_entier("heure",0,24);
     min   = demande_a_l_utilisateur_un_entier("minutes",0,60);
 
+    // Transforme les données en structure date
     transforme_en_date(jour, mois, annee, heure, min, &ladate);
 
 
     // menu choix epreuve
     //displayMenuChoixUneEpreuveATaper(epeuve);
 
-        
+    // Demande à l'utilisateur de saisir la performance selon le type d'épreuve    
     if(strcmp(epeuve, "marathon")==0){
         demande_a_l_utilisateur_une_perf_marathon(&laperf);
 
@@ -233,6 +223,8 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
          demande_a_l_utilisateur_une_perf(&laperf);
     }
 
+
+     // Si l'épreuve est un relais, demande à l'utilisateur la position dans le relais
     if(strcmp(epeuve, "relais")==0)
         position_relais = demande_a_l_utilisateur_un_entier(" Quelle était sa position dans le relai",1,4);
 
@@ -242,7 +234,7 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
     
     
 
-    // creation nouvell entrainement 
+    // Création d'un nouvel entraînement avec les données saisies
     p_new_entrainement = getNewEntrainement(ladate, epeuve, laperf, position_relais);
     
 
@@ -253,11 +245,9 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
 
 
 
-//ajout du nouvel entrainement dans le tab de tous les entrainements
+//Ajout du nouvel entrainement dans le tab de tous les entrainements
 void addNewEntrainementDansTab(entrainement** tab_entrainement, int* nbEntrainement, entrainement* p_new_entrainement) {
 
-    // for debug
-    // printf("\nDEBUG addNewEntrainementDansTab nbEntrainement : %d\n", *nbEntrainement);
 
     tab_entrainement[*nbEntrainement] = p_new_entrainement;
     
@@ -266,7 +256,7 @@ void addNewEntrainementDansTab(entrainement** tab_entrainement, int* nbEntrainem
 }
 
 
-// creation nouvel entrainement
+// Creation nouvel entrainement
 // return pointeur dessus
 entrainement* getNewEntrainement(date la_date, char* epreuve, performance perf, int position_relais)
 {
@@ -290,7 +280,7 @@ entrainement* getNewEntrainement(date la_date, char* epreuve, performance perf, 
 }
 
 
-// ajout du nouvel entrainement dans le tab de tous les entrainements !
+// Ajout du nouvel entrainement dans le tab de tous les entrainements !
 // 1. lit le fichier de l'athlete
 // 2. ajout l'entrainement
 // 3. reecris le fichier
