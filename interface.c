@@ -10,23 +10,6 @@
 #include <string.h>
 
 
-// Initiation des fonctions nécessaires à la construction du programme.
-
-// int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
-//     int nombre;
-//     // Boucle do-while pour s'assurer que la saisie est entre min et max
-//     do{
-//         // Affiche seulement la question
-//         printf("%s  (entre %d et %d) : ", question, min ,max);
-//         // Lit l'entier saisi par l'utilisateur
-//         scanf("%d", &nombre);
-//     }while(nombre<min || max<nombre); // Répète si le nombre est en dehors des limites
-
-
-
-//     return nombre;  // Retourne le nombre valide saisi par l'utilisateur
-// }
-
 int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
     int nombre;
 
