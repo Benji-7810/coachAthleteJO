@@ -4,7 +4,7 @@
 
 // Différents menus traversées
 
-//Menu
+//Menu Principal
 int displayMenu(char tab_option[]);
 int displayMenuPrincipal();
 
