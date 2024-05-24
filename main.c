@@ -36,7 +36,7 @@ int main() {
     
         int j = 0;
 
-        // char nom_athlete[500];
+        // char non_athlet[500]
         char filename[500];
         int nbr = 0;
         int diff=0;
