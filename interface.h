@@ -44,8 +44,6 @@ int numero_jour( date d);
 int nombre_jours(date d1, date d2);
 
 
-
-
 //Affiche une date
 char* get_date_printable(date ladate);
 void transforme_en_date(int jour, int mois, int annee, int heure, int min, date* ladate);

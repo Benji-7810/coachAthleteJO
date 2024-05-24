@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <limits.h>
 
 int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
     int nombre;
@@ -21,8 +21,10 @@ int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
             
             // Si la saisie n'est pas un entier, vider le tampon d'entrée
             scanf("%s", buffer); // Lire et vider le reste de la saisie
-            printf("\nVeuillez saisir un nombre entier.\n");
-            continue;
+            printf("\nVeuillez saisir un nombre entier !\n");
+            
+            // securise le nombre pour etre sur de ne pas se tromper 
+            nombre = min-1;
         }
         if (nombre < min || nombre > max) {
             
@@ -32,8 +34,6 @@ int demande_a_l_utilisateur_un_entier(char* question, int min, int max) {
 
     return nombre;  // Retourne le nombre valide saisi par l'utilisateur
 }
-
-// Même fonction précédente, or elle est appelée sans attendre d'affichage.
 
 
 
@@ -48,8 +48,10 @@ int demande_a_l_utilisateur_un_entier_sans_affichage(char* question, int min, in
            
             // Si la saisie n'est pas un entier, vider le tampon d'entrée
             scanf("%s", buffer); // Lire et vider le reste de la saisie
-            printf("\nVeuillez saisir un nombre entier.\n");
-            continue;
+            printf("\nVeuillez saisir un nombre entier !\n");
+
+            // securise le nombre pour etre sur de ne pas se tromper 
+            nombre = min-1;
         }
 
         if (nombre < min || nombre > max) {
@@ -276,13 +278,12 @@ void demande_a_l_utilisateur_une_date(date* date_relais) {
 
 void demande_a_l_utilisateur_une_perf(performance* laperf) {
     int min;
-    int seconde;
+    float seconde;
 
     printf("\nEntrez le temps de la performance :\n");
 
     // Boucle pour demander les minutes jusqu'à ce qu'une valeur valide soit entrée
     min = demande_a_l_utilisateur_un_entier("Minutes (ex : '0', '1', '13', '12') ?", 0, 59);
-    printf("lol");
 
     // Boucle pour demander les secondes jusqu'à ce qu'une valeur valide soit entrée
     seconde = demande_a_l_utilisateur_un_entier("Secondes (ex : '9.32', '12.00') ?", 0, 59);
@@ -301,10 +302,10 @@ void demande_a_l_utilisateur_une_perf_marathon(performance* laperf) {
 
     printf("\nEntrez le temps de la performance :\n");
 
-    heure = demande_a_l_utilisateur_un_entier("heure (ex : '9.32', '12.00') ?", 0, 50);
+    heure = demande_a_l_utilisateur_un_entier_sans_affichage("heure (ex : '9.32', '12.00') ?", 0, 50);
 
     // Boucle pour demander les minutes jusqu'à ce qu'une valeur valide soit entrée
-    min = demande_a_l_utilisateur_un_entier("Minutes (ex : '0', '1', '13', '12') ?", 0, 59);
+    min = demande_a_l_utilisateur_un_entier_sans_affichage("Minutes (ex : '0', '1', '13', '12') ?", 0, 59);
 
     // Boucle pour demander les secondes jusqu'à ce qu'une valeur valide soit entrée
     seconde = demande_a_l_utilisateur_un_entier("Secondes (ex : '9.32', '12.00') ?", 0, 59);

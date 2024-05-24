@@ -201,11 +201,11 @@ void addNewEntrainementSaisiUser(entrainement** tab_entrainement, int* nbEntrain
 
     // Demande à l'utilisateur de saisir la date de l'entraînement
     printf("\nDate de l'entrainement ?\n");
-    jour  = demande_a_l_utilisateur_un_entier("jour",1,31);
-    mois  = demande_a_l_utilisateur_un_entier("mois",1,12);
-    annee = demande_a_l_utilisateur_un_entier("année",2000,2024);
-    heure = demande_a_l_utilisateur_un_entier("heure",0,24);
-    min   = demande_a_l_utilisateur_un_entier("minutes",0,60);
+    jour  = demande_a_l_utilisateur_un_entier("jour ?",1,31);
+    mois  = demande_a_l_utilisateur_un_entier("mois ?",1,12);
+    annee = demande_a_l_utilisateur_un_entier("année ? (entre 2000 et 2024)",2000,2024);
+    heure = demande_a_l_utilisateur_un_entier("heure ?",0,24);
+    min   = demande_a_l_utilisateur_un_entier("minutes ?",0,60);
 
     // Transforme les données en structure date
     transforme_en_date(jour, mois, annee, heure, min, &ladate);
