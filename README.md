@@ -18,6 +18,9 @@ Fonctionnalités du programme : pouvoir les mettre à jour, consulter certains r
 # commande pour lancer le programme sous linux :
 ./run.sh
 
+
+# organisation de notre code source : 
+
 strcutres.h              -----> toutes les structures utilisées pour le programme (athlete, date, épreuve, performance, entraînement, StatistiquesAthlete)
 
 athletes.c               -----> toutes les fonctions pour la gestion des athlètes (ajouter un athlète, afficher les athlètes ...)
