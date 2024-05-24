@@ -272,53 +272,43 @@ void demande_a_l_utilisateur_une_date(date* date_relais) {
 }
 
 
+
+
 void demande_a_l_utilisateur_une_perf(performance* laperf) {
-    
     int min;
-    float seconde;
+    int seconde;
 
-    printf("\ntemps de le perf:");
+    printf("\nEntrez le temps de la performance :\n");
 
-     // Boucle pour demander les minutes jusqu'à ce qu'une valeur valide soit entrée
-    do{
-        printf("\nmin (ex: '0', '1', '13', '12') ? ");
-        scanf("%d",&min);
-    }while(min<0 || min>59);
+    // Boucle pour demander les minutes jusqu'à ce qu'une valeur valide soit entrée
+    min = demande_a_l_utilisateur_un_entier("Minutes (ex : '0', '1', '13', '12') ?", 0, 59);
+    printf("lol");
 
-     // Boucle pour demander les secondes jusqu'à ce qu'une valeur valide soit entrée
-    do{
-        printf("\nsec (ex: '9.32', '12.00' ? ");
-        scanf("%f", &(seconde)); // On lit un double au lieu d'un entier  
-    }while(seconde<0 || seconde>59);
+    // Boucle pour demander les secondes jusqu'à ce qu'une valeur valide soit entrée
+    seconde = demande_a_l_utilisateur_un_entier("Secondes (ex : '9.32', '12.00') ?", 0, 59);
 
     // Calcule le temps total en secondes et l'assigne à la structure performance
-    laperf->perf =(min*60)+seconde;
-
-    
+    laperf->perf = (min * 60) + seconde;
 }
+
+
+
 
 void demande_a_l_utilisateur_une_perf_marathon(performance* laperf) {
     int min ;
     float seconde;
     int heure;
 
-    printf("\ntemps de le perf:");
+    printf("\nEntrez le temps de la performance :\n");
 
-    do{
-        printf("\nheure (ex: '1', '2' ? )");
-        scanf("%d",&heure);
-    }while(heure<0);
+    heure = demande_a_l_utilisateur_un_entier("heure (ex : '9.32', '12.00') ?", 0, 50);
 
+    // Boucle pour demander les minutes jusqu'à ce qu'une valeur valide soit entrée
+    min = demande_a_l_utilisateur_un_entier("Minutes (ex : '0', '1', '13', '12') ?", 0, 59);
 
-    do{
-        printf("\nmin (ex: '0', '1', '13', '12') ? ");
-        scanf("%d",&min);
-    }while(min<0 || min>59);
+    // Boucle pour demander les secondes jusqu'à ce qu'une valeur valide soit entrée
+    seconde = demande_a_l_utilisateur_un_entier("Secondes (ex : '9.32', '12.00') ?", 0, 59);
 
-    do{
-        printf("\nsec (ex: '9.32', '12.00' ? ");
-        scanf("%f", &(seconde)); // On lit un double au lieu d'un entier  
-    }while(seconde<0 || seconde>59);
 
 
     laperf->perf = (heure*3600) + (min*60) + seconde;

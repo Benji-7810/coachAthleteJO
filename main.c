@@ -134,7 +134,7 @@ int main() {
 
                                 // Sélection des athlètes pour le relais
                                 // Athlète 1
-                                tab_athlete_relais[0] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°1: ", 1, nbAthletes) - 1;
+                                tab_athlete_relais[0] = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète n°1: ", 1, nbAthletes) - 1;
 
 
                                 // Athlète 2
@@ -145,7 +145,7 @@ int main() {
                                                 printf("\nDéjà choisi !! Choisissez un autre athlète s'il vous plaît."); 
                                         }
 
-                                        tab_athlete_relais[1] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°2: ", 1, nbAthletes) - 1;
+                                        tab_athlete_relais[1] = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète n°2: ", 1, nbAthletes) - 1;
                                         
                                         i++;
 
@@ -161,7 +161,7 @@ int main() {
                                                 printf("\nDéjà choisi !! Choisissez un autre athlète s'il vous plaît."); 
                                         }
                                         
-                                        tab_athlete_relais[2] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°3: ", 1, nbAthletes) - 1;
+                                        tab_athlete_relais[2] = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète n°3: ", 1, nbAthletes) - 1;
                                         
                                         i++;
                                 } while (tab_athlete_relais[2] == tab_athlete_relais[0] || tab_athlete_relais[2] == tab_athlete_relais[1]);
@@ -175,7 +175,7 @@ int main() {
                                                 printf("\nDéjà choisi !! Choisissez un autre athlète s'il vous plaît."); 
                                         }
 
-                                        tab_athlete_relais[3] = demande_a_l_utilisateur_un_entier_sans_affichage("\nChoisi l'athlete n°4: ", 1, nbAthletes) - 1;
+                                        tab_athlete_relais[3] = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète n°4: ", 1, nbAthletes) - 1;
                                         
                                         i++;
                                 } while (tab_athlete_relais[3] == tab_athlete_relais[0] || tab_athlete_relais[3] == tab_athlete_relais[1] || tab_athlete_relais[3] == tab_athlete_relais[2]);
@@ -237,12 +237,8 @@ int main() {
                                                 printf("\n\n");
                                                 printArrayOfAthlete(tab_athletes, nbAthletes);
                                                 
-                                                // Choix de l'athlète
-                                                do {
-                                                        printf("\nQuel Athlete ? ");
-                                                        scanf("%d", &num_athlete);
-                                                } while(num_athlete < 0 || num_athlete > nbAthletes);
 
+                                                num_athlete = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète",1,nbAthletes);
 
                                                 // Génération du nom de fichier
                                                 sprintf(filename, "data/%s.csv", tab_athletes[num_athlete - 1]->prenom_nom);
@@ -286,10 +282,7 @@ int main() {
 
 
                                         // Choix de l'athlète parmi la liste
-                                        do {
-                                                printf("\nChoisis un athlète parmi cette liste \n");
-                                                scanf("%d", &num_athlete);
-                                        } while (num_athlete < 0 || num_athlete > nbAthletes);
+                                        num_athlete = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète",1,nbAthletes);
 
 
                                         // Affiche le nom de l'athlète choisi
@@ -318,10 +311,7 @@ int main() {
                                         printArrayOfAthlete(tab_athletes, nbAthletes);
 
                                         // Choix de l'athlète parmi la liste
-                                        do {
-                                                printf("\nChoisis un athlète parmi cette liste \n");
-                                                scanf("%d", &num_athlete);
-                                        } while (num_athlete < 0 || num_athlete > nbAthletes);
+                                        num_athlete = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète",1,nbAthletes);
 
 
                                         // Affiche le nom de l'athlète choisi
@@ -404,10 +394,7 @@ int main() {
 
 
                                         // Demande à l'utilisateur de choisir un athlète parmi la liste
-                                        do {
-                                                printf("\nChoisissez un athlète parmi cette liste \n");
-                                                scanf("%d", &num_athlete);
-                                        } while(num_athlete < 0 || num_athlete > nbAthletes);
+                                        num_athlete = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète",1,nbAthletes);
 
 
                                         // Récupère le nom du fichier correspondant à l'athlète choisi
@@ -446,17 +433,10 @@ int main() {
                                         double pro;
 
                                         // Demande le premier entraînement
-                                        do {
-                                                printf("Saisissez le premier entraînement : ");
-                                                scanf("%d", &entr1);
-                                        } while (entr1 > j || entr1 < 1);
-
-
+                                        entr1 = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète",1,j);
+                                        
                                         // Demande le deuxième entraînement
-                                        do {
-                                                printf("Saisissez le deuxième entraînement : ");
-                                                scanf("%d", &entr2);
-                                        } while (entr2 > j || entr2 < 1);
+                                        entr2 = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète",1,j);
 
 
                                         // Calcule la différence de performance entre les deux entraînements
