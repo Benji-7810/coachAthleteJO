@@ -10,6 +10,7 @@ Fonctionnalités du programme : pouvoir ajouter de nouvelles, consulter certains
 1. chargement des fichiers en mémoire dans des tableaux de structures
 2. choix des actions de l'utilisateur par menu
 3. lors des ajouts d'entrainements : écriture dans les fichiers
+4. affiche les tableaux
 
 
 # organisation de notre code source : 
@@ -46,9 +47,10 @@ make
 make compiler_sous_linux
 
 
+# historique des commits
 gitlog.sh
 gitlog.bat
-...
+
 
 
 # ##########################
