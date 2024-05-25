@@ -54,6 +54,11 @@ athlete** readAthletesFromFile(const char* nomFichier, int* nbAthletes) {
 // affiche un tableau d'athlete
 void printArrayOfAthlete(athlete** tab_athletes, int nbAthletes)
 {
+    printf("\n  ***********************");
+    printf("\n  * Liste des athlètes  *");
+    printf("\n  ***********************\n");
+
+
     //printf("Nombre d'athletes : %d\n\n", nbAthletes);
     printf("\n");
     for (int i = 0; i < nbAthletes; i++) {

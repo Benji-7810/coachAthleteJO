@@ -71,7 +71,7 @@ entrainement** print_entrainements_trier(entrainement** tab_entrainement, int nb
     *nb_filtre = 0;
     
     // Afficher l'épreuve pour laquelle les performances vont être triées
-    printf("Performances triées pour l'épreuve: %s\n", epreuve);
+    //printf("Performances triées pour l'épreuve: %s\n", epreuve);
 
     // Parcourir tous les entrainements pour filtrer ceux correspondant à l'épreuve spécifiée
     for (int i = 0; i < nb_entrainement; i++) {
@@ -216,7 +216,7 @@ void affiche_athletes_relais(entrainement** tab_entrainement) {
     printf("\nvoici les 3 meilleurs groupes d'athlètes\n");
 
     // Affichage du premier groupe
-    printf("\nMeilleur groupe  1- %20s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
+    printf("\nMeilleur groupe  : 1- %15s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
         tab_entrainement[0]->nom,
         tab_entrainement[1]->nom,
         tab_entrainement[2]->nom,
@@ -224,7 +224,7 @@ void affiche_athletes_relais(entrainement** tab_entrainement) {
         get_perf_printable(tab_entrainement[0]->laperf));
 
     // Affichage du deuxième groupe
-    printf("\nDeuxième groupe  1- %20s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
+    printf("\nDeuxième groupe  : 1- %15s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
         tab_entrainement[4]->nom,
         tab_entrainement[5]->nom,
         tab_entrainement[6]->nom,
@@ -232,7 +232,7 @@ void affiche_athletes_relais(entrainement** tab_entrainement) {
         get_perf_printable(tab_entrainement[4]->laperf));
 
     // Affichage du troisième groupe
-    printf("\nTroisième groupe 1- %20s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
+    printf("\nTroisième groupe : 1- %15s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
         tab_entrainement[8]->nom,
         tab_entrainement[9]->nom,
         tab_entrainement[10]->nom,

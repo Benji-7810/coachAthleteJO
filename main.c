@@ -72,7 +72,7 @@ int main() {
 
                                 // Choix de l'athlète
                                 num_athlete = demande_a_l_utilisateur_un_entier_sans_affichage
-                                ("\nChoisis un athlete parmis cette liste d'athletes pour ajouter l'entrainement\n", 1, nbAthletes);
+                                ("\nSaisissez le numéro de l'athlète\n", 1, nbAthletes);
                         
 
                                 // Affichage du nom de l'athlète choisi
@@ -465,7 +465,8 @@ int main() {
                                         else {
                                                 printf("\nL'athlète a perdu %.2f secondes en performance avec %d jours d'intervalle.", pro, diff);
                                         }
-                                        
+                                
+                                break;
                                 // retour
                                 case 6:
                                         printf("\nretour");

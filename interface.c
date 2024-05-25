@@ -109,7 +109,7 @@ int displayMenuGeneric(char* tab_option[], int nb_option){
 
     }
     // Demande à l'utilisateur de faire un choix parmi les options disponibles
-    return demande_a_l_utilisateur_un_entier("\nquel choix veux tu choisir ?", 1, nb_option);
+    return demande_a_l_utilisateur_un_entier("\nQuelle action veux tu choisir ?", 1, nb_option);
 
     
 }
@@ -139,7 +139,7 @@ int displayMenuPrincipal(){
 int displayMenuStatistiquesAthlete(){
 
     
-    int nb_option=5;
+    int nb_option=6;
 
 
     
@@ -149,7 +149,7 @@ int displayMenuStatistiquesAthlete(){
         "performances clés d’un athlète",
         "Qui envoyer au JO",
         "Progression de l’athlète",
-        "RETOUR" //retour n'est pas considéré comme une option.
+        "RETOUR" 
     };
 	
     //affiche les options du menu et demande à l'utilisateur de faire un choix parmi ces options. 
