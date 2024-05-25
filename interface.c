@@ -147,7 +147,7 @@ int displayMenuStatistiquesAthlete(){
         "consulter les entrainements d'un athlete par date",
         "consulter les entrainements d'un athlete par epreuve",
         "performances clés d’un athlète",
-        "Qui envoyer au JO",
+        "Qui envoyer au JO ?",
         "Progression de l’athlète",
         "RETOUR" 
     };
