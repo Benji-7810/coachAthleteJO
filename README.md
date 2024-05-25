@@ -40,16 +40,18 @@ trie.c                   ---> toutes les fonctions pour trier des tableaux selon
 # commandes principales
 # ###########################
 
-# compiler, générer l'exécutable et lancer le programme
+## compiler, générer l'exécutable et lancer le programme
 make
 
-# compiler et générer l'exécutable
+## compiler et générer l'exécutable
 make compiler_sous_linux
 
 
-# historique des commits
+## historique des commits
 gitlog.sh
 gitlog.bat
+
+
 
 
 
