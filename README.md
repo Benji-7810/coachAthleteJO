@@ -37,7 +37,7 @@ trie.c                   ---> toutes les fonctions pour trier des tableaux selon
 
 
 # ###########################
-# commandes principales
+# commandes principales :
 # ###########################
 
 ## compiler, générer l'exécutable et lancer le programme
@@ -56,7 +56,7 @@ gitlog.bat
 
 
 # ##########################
-# anciennes commandes 
+# anciennes commandes :
 # ###########################
 
 ## commande pour compiler sous windows:
