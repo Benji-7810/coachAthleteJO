@@ -54,7 +54,7 @@ gitlog.bat
 
 
 # ##########################
-# anciennes commandes 
+## anciennes commandes 
 # ###########################
 
 # commande pour compiler sous windows:
