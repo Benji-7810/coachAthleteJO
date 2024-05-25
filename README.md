@@ -76,11 +76,11 @@ gitlog.bat (windows)
 
 ## 1. ajout d'un entrainement pour un athlète
 
-   1.1 "menu principal" : choix 1: "ajouter un entrainement"
-   1.2 taper le nom de l'epreuve
-   1.3 choix de l'athlete par son numero
-   1.4 rentrer la date de l'entrainement
-   1.5 rentrer la perf en minute/seconde
+    1.1 "menu principal" : choix 1: "ajouter un entrainement"
+    1.2 taper le nom de l'epreuve
+    1.3 choix de l'athlete par son numero
+    1.4 rentrer la date de l'entrainement
+    1.5 rentrer la perf en minute/seconde
 
 
 ## 2. voir les meilleures performances d'un athlète
