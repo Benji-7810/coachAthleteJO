@@ -233,7 +233,8 @@ void trierParMeilleurTemps(StatistiquesAthlete *stats, int nbAthletes) {
 
 
 // Affiche les statistiques des athlètes en fonction du choix de l'utilisateur
-void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes) {
+// choix : 1 : meilleur temps,       2:moyenne des temps
+void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes, int choix) {
     
     // Vérifie s'il y a des statistiques à afficher
     if (stats == NULL || nbAthletes == 0) {
@@ -241,8 +242,6 @@ void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes) {
         return;
     }
     
-    // Demande à l'utilisateur de choisir le critère de classement des athlètes
-    int choix = demande_a_l_utilisateur_un_entier_sans_affichage("Vous voulez afficher les 3 meilleurs athlètes selon :\n1- Meilleur temps\n2- Moyenne des temps\n", 1, 2);
     
     // Trie les statistiques en fonction du choix de l'utilisateur
     if (choix == 1) {
@@ -250,17 +249,17 @@ void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes) {
         trierParMeilleurTemps(stats, nbAthletes);
         
         // Affiche les 3 meilleurs athlètes par meilleur temps
-        printf("        Le meilleur athlète  : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[0].nom, stats[0].meilleur_temps);
-        printf("        Le deuxième athlète  : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[1].nom, stats[1].meilleur_temps);
-        printf("        Le troisième athlète : %20s     avec pour meilleur temps  : %5.2f secondes\n", stats[2].nom, stats[2].meilleur_temps);
+        printf("        Le meilleur athlète  : %20s   avec pour meilleur temps  : %s\n", stats[0].nom, get_nb_sec_printable(stats[0].meilleur_temps));
+        printf("        Le deuxième athlète  : %20s   avec pour meilleur temps  : %s\n", stats[1].nom, get_nb_sec_printable(stats[1].meilleur_temps));
+        printf("        Le troisième athlète : %20s   avec pour meilleur temps  : %s\n", stats[2].nom, get_nb_sec_printable(stats[2].meilleur_temps));
     } else {
         
         trierParMoyenne(stats, nbAthletes);
         
         // Affiche les 3 meilleurs athlètes par moyenne des temps
-        printf("        Le meilleur athlète  : %20s     avec pour moyenne temps  : %5.2f secondes\n", stats[0].nom, stats[0].moyenne_temps);
-        printf("        Le deuxième athlète  : %20s     avec pour moyenne temps  : %5.2f secondes\n", stats[1].nom, stats[1].moyenne_temps);
-        printf("        Le troisième athlète : %20s     avec pour moyenne temps  : %5.2f secondes\n", stats[2].nom, stats[2].moyenne_temps);
+        printf("        Le meilleur athlète  : %20s   avec pour moyenne temps  : %s\n", stats[0].nom, get_nb_sec_printable(stats[0].moyenne_temps));
+        printf("        Le deuxième athlète  : %20s   avec pour moyenne temps  : %s\n", stats[1].nom, get_nb_sec_printable(stats[1].moyenne_temps));
+        printf("        Le troisième athlète : %20s   avec pour moyenne temps  : %s\n", stats[2].nom, get_nb_sec_printable(stats[2].moyenne_temps));
     }
 }
 

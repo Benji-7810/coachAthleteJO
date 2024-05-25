@@ -204,16 +204,22 @@ char* get_date_printable(date ladate)
 
 */ 
 
-
 char* get_perf_printable(performance laperf)
+{
+    double nb_sec = laperf.perf; // Temps en secondes
+
+    return get_nb_sec_printable(nb_sec);
+}
+
+
+char* get_nb_sec_printable(double nb_sec)
 {
     // for debug
     //printf("\nperf_printable: %lf\n", laperf.perf);
 
      // Allocation de mémoire pour la chaîne de caractères perf_printable
     char* perf_printable = (char*) malloc(sizeof(char) * (40));
-
-    double nb_sec = laperf.perf; // Temps en secondes
+    
     
     int nb_min = 0; // Minutes
     char str_min[20]; // Chaîne pour stocker les minutes formatées

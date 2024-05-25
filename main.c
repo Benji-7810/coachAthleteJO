@@ -28,7 +28,17 @@ int main() {
     int num_athlete = 0;
 
     char nom_epreuve[100];        
+
+    int nb_epreuve = 5;
+    char *tab_epreuve[] = { 
+        "100m",
+        "400m",
+        "5000m",
+        "marathon",
+        "relais"
+    };
     
+    int choix;
 
     // load athletes from file
     athlete** tab_athletes = readAthletesFromFile(FILE_ATHLETES, &nbAthletes);
@@ -357,32 +367,45 @@ int main() {
                                         // Qui envoyer aux JO
 
                                         // Affiche le menu pour choisir une épreuve à taper
-                                        displayMenuChoixUneEpreuveATaper(nom_epreuve);
+                                        // displayMenuChoixUneEpreuveATaper(nom_epreuve);
+
+                                        // Demande à l'utilisateur de choisir le critère de classement des athlètes
+                                        choix = demande_a_l_utilisateur_un_entier_sans_affichage("Vous voulez afficher les 3 meilleurs athlètes selon :\n1- Meilleur temps\n2- Moyenne des temps\n", 1, 2);
 
 
-                                        // Si l'utilisateur choisit de revenir en arrière, sort de la boucle
-                                        if (strcmp(nom_epreuve, "retour") == 0) {
-                                                break;
-                                        }
+                                        for (int i=0 ; i<nb_epreuve ; i++) {
 
-                                        // Génère un tableau d'entraînements pour tous les athlètes pour l'épreuve choisie
-                                        entrainement** tab_tout_les_athletes = genererTableauEntrainements(FILE_ATHLETES, &nbTotalEntrainements, nom_epreuve);
+                                                strcpy(nom_epreuve, tab_epreuve[i]);
+                                                printf("\n%s:", nom_epreuve);
+                                                printf("\n**********\n");
 
 
-                                        // Si l'épreuve n'est pas un relais
-                                        if (strcmp(nom_epreuve, "relais") != 0) {
+                                                // Si l'utilisateur choisit de revenir en arrière, sort de la boucle
+                                                if (strcmp(nom_epreuve, "retour") == 0) {
+                                                        break;
+                                                }
 
-                                                // Calcule et affiche les statistiques des athlètes pour l'épreuve choisie
-                                                StatistiquesAthlete* stats = calculerStatistiques(tab_tout_les_athletes, nbTotalEntrainements, &nbAthletes);
-                                                afficherStatistiques(stats, nbAthletes);
-                                        } 
-                                        // Si l'épreuve est un relais
-                                        else {
+                                                // Génère un tableau d'entraînements pour tous les athlètes pour l'épreuve choisie
+                                                entrainement** tab_tout_les_athletes = genererTableauEntrainements(FILE_ATHLETES, &nbTotalEntrainements, nom_epreuve);
 
-                                                // Affiche les entraînements des athlètes pour l'épreuve de relais et les meilleurs groupes
-                                                afficherEntrainements(tab_tout_les_athletes, nbTotalEntrainements);
-                                                affiche_athletes_relais(tab_tout_les_athletes);
-                                        }
+
+                                                // Si l'épreuve n'est pas un relais
+                                                if (strcmp(nom_epreuve, "relais") != 0) {
+
+                                                        // Calcule et affiche les statistiques des athlètes pour l'épreuve choisie
+                                                        StatistiquesAthlete* stats = calculerStatistiques(tab_tout_les_athletes, nbTotalEntrainements, &nbAthletes);
+                                                        afficherStatistiques(stats, nbAthletes, choix);
+                                                } 
+                                                // Si l'épreuve est un relais
+                                                else {
+
+                                                        // Affiche les entraînements des athlètes pour l'épreuve de relais et les meilleurs groupes
+                                                        //afficherEntrainements(tab_tout_les_athletes, nbTotalEntrainements);
+                                                        // Tri des entraînements par performance
+                                                        trie_entrainement_par_perf(tab_tout_les_athletes, nbTotalEntrainements);
+                                                        affiche_athletes_relais(tab_tout_les_athletes);
+                                                }
+                                        } // fin for epreuves
 
                                         break;
 
@@ -433,10 +456,10 @@ int main() {
                                         double pro;
 
                                         // Demande le premier entraînement
-                                        entr1 = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète",1,j);
+                                        entr1 = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'entrainement",1,j);
                                         
-                                        // Demande le deuxième entraînement
-                                        entr2 = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'athlète",1,j);
+                                        // Demande le deuxième entraînement2
+                                        entr2 = demande_a_l_utilisateur_un_entier_sans_affichage("\nSaisissez le numéro de l'entrainement 2",1,j);
 
 
                                         // Calcule la différence de performance entre les deux entraînements

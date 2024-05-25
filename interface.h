@@ -59,4 +59,4 @@ void demande_a_l_utilisateur_une_perf_marathon(performance* laperf);
 
 //Affiche les perf
 char* get_perf_printable(performance laperf);
-
+char* get_nb_sec_printable(double nb_sec);

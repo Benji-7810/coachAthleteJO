@@ -48,4 +48,5 @@ void trierParMeilleurTemps(StatistiquesAthlete *stats, int nbAthletes);
 
 
 // Affiche les statistiques des athlètes en fonction du choix de l'utilisateur
-void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes);
+// choix : 1 : meilleur temps,       2:moyenne des temps
+void afficherStatistiques(StatistiquesAthlete *stats, int nbAthletes, int choix);

@@ -213,31 +213,26 @@ void trie_entrainement_par_date(entrainement** tab_entrainement, int nb_entraine
 
 // affiche les 3 meilleurs groupe de relais à envoyer au JO
 void affiche_athletes_relais(entrainement** tab_entrainement) {
-    printf("\nvoici les 3 meilleurs groupes d'athlètes\n");
+    printf("voici les 3 meilleurs groupes de relais\n");
 
     // Affichage du premier groupe
-    printf("\nMeilleur groupe  : 1- %15s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
-        tab_entrainement[0]->nom,
-        tab_entrainement[1]->nom,
-        tab_entrainement[2]->nom,
-        tab_entrainement[3]->nom,
-        get_perf_printable(tab_entrainement[0]->laperf));
+    printf("\n**Meilleur groupe de relais**    temps:%s\n", get_perf_printable(tab_entrainement[0]->laperf));
+    for (int i=0 ; i<4 ; i++) {
+        printf("\n  en position %d: %s", (i+1), tab_entrainement[0+i]->nom);
+    }   
 
-    // Affichage du deuxième groupe
-    printf("\nDeuxième groupe  : 1- %15s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
-        tab_entrainement[4]->nom,
-        tab_entrainement[5]->nom,
-        tab_entrainement[6]->nom,
-        tab_entrainement[7]->nom,
-        get_perf_printable(tab_entrainement[4]->laperf));
+    // Affichage du Deuxième groupe
+    printf("\n\n**Deuxième groupe de relais**    temps:%s\n", get_perf_printable(tab_entrainement[4]->laperf));
+    for (int i=0 ; i<4 ; i++) {
+        printf("\n  en position %d: %s", (i+1), tab_entrainement[4+i]->nom);
+    }  
 
-    // Affichage du troisième groupe
-    printf("\nTroisième groupe : 1- %15s,   2- %20s,   3- %20s,   4 %20s     avec un temps de %s\n",
-        tab_entrainement[8]->nom,
-        tab_entrainement[9]->nom,
-        tab_entrainement[10]->nom,
-        tab_entrainement[11]->nom,
-        get_perf_printable(tab_entrainement[8]->laperf));
+    // Affichage du nTroisième groupe
+    printf("\n\n**Troisième groupe de relais**    temps:%s\n", get_perf_printable(tab_entrainement[8]->laperf));
+    for (int i=0 ; i<4 ; i++) {
+        printf("\n  en position %d: %s", (i+1), tab_entrainement[8+i]->nom);
+    }  
+
 }
 
 
