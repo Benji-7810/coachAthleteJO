@@ -40,6 +40,10 @@ trie.c                   ---> toutes les fonctions pour trier des tableaux selon
 ...
 
 
+/data/'données_projet_coachJO'.xlsx  ---> Fichier stockant tous les entraînements préenregistrés du programme avec aussi les noms d'athlètes.
+
+
+
 # la structure principale pour manipuler les données des entrainements
 # voir fichier "structure.h" pour le détail
 typedef struct{
