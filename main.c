@@ -450,7 +450,7 @@ int main() {
 
 
                                         // Demande à l'utilisateur de saisir les deux entraînements pour comparer leur progression
-                                        printf("\n\n Veuillez saisir les deux entraînements dont vous souhaitez constater la progression\n\n");
+                                        printf("\n\nVeuillez saisir les deux entraînements dont vous souhaitez constater la progression\n\n");
 
                                         int entr1, entr2;
                                         double pro;
